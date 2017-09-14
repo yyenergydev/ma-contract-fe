@@ -1,0 +1,62 @@
+{
+  "name": "ma-contract-fe",
+  "version": "0.0.1",
+  "description": "微应用合同管理前端页面",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "dev": "webpack-dev-server --port 8084 --host 127.0.0.1 --inline --hot --config config/webpack.dev.config.js",
+    "build": "webpack --progress  --config config/webpack.prod.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://git.yonyou.com/energycloud_contract/ma-contract-fe.git"
+  },
+  "keywords": [
+    "contract"
+  ],
+  "author": "songhlc, zhangmyh",
+  "license": "MIT",
+  "dependencies": {
+    "eventemitter2": "^2.2.2",
+    "highcharts": "^5.0.7",
+    "knockout": "^3.4.1",
+    "ko-epui": "2.0.5",
+    "lodash": "^4.17.2",
+    "socket.io-client": "^1.7.2",
+    "store": "^1.3.20",
+    "webuploader": "^0.1.8"
+  },
+  "devDependencies": {
+    "babel-core": "^6.21.0",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-runtime": "^6.15.0",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-preset-stage-3": "^6.17.0",
+    "babel-runtime": "^6.20.0",
+    "copy-webpack-plugin": "^4.0.1",
+    "css-loader": "^0.23.0",
+    "eslint": "^3.12.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-loader": "^1.6.1",
+    "eslint-plugin-html": "^1.7.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-standard": "^2.0.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-loader": "^0.4.4",
+    "html-webpack-plugin": "^2.24.1",
+    "hyperdown": "^2.1.0",
+    "i18n-webpack-plugin": "^0.3.0",
+    "jquery": "^3.1.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
+    "stylus-loader": "^2.4.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2",
+    "webpack-hot-middleware": "^2.13.2",
+    "webpack-merge": "^1.1.2" 
+  }
+}

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+  <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+  <link rel="stylesheet" type="text/css" href="<%= name %>"> <% }) %>
+  <% } %>
+</head>
+<body>
+<div id="container" class="animated fadeIn">
+  <box>
+    <breadcrumbs params="path:'bidList'"></breadcrumbs>
+    <box-filter params="title:'竞价清单'">
+      <div class="pull-right">
+      <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.recommend">推荐供应商</button>
+        <!--<button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.preqlfSubmit">${__('preqlf_submit')}</button>-->
+        <a class="btn btn-outline btn-sm  m-r-sm" data-bind = "click:function () { return window.history.go(-1)}"><span class="fa fa-reply"></span>返回</a>
+      </div>
+    </box-filter>
+    <box-content>
+      <div class="main-title u-row margin-bottom-10">
+           <div class="u-col-sm-12">
+             <div class="pull-left u-col-sm-4">
+                <strong data-bind="text: $root.model.ref('title')"></strong>
+             </div>
+             <div class="pull-left u-col-sm-8">
+                <button style="background-color:#DDFFDD" disabled data-bind="visible: $root.applyVis">报价已截止</button>
+             </div>
+           </div>
+      </div>
+       <div class="u-row">
+          <div class="clearfix margin-bottom-10" >
+            <div class="pull-left u-col-12 " style="line-height: 34px;">
+                <div class="pull-left u-col-2">
+                  <span>编号:</span> <span data-bind="text:$root.model.ref('code')"></span>
+                </div>
+                <div class="pull-left u-col-2">
+                  <span>发起公司:</span> <span data-bind="text:$root.model.ref('enterpriseName')"></span>
+                </div>
+            </div>
+       </div>
+      <div class="u-row">
+        <div class="clearfix" >
+            <div class="pull-left u-col-12 " style="margin-left:15px">
+               <div class="pull-left u-col-5">
+              <span>竞价物料:</span> <span data-bind = "text:$root.model.ref('materials')"></span>
+              </div>
+              <!--<div class="pull-left u-col-5">
+                <a href="#" style="color:blue">查看竞价</a>
+              </div>-->
+          </div>
+        </div>
+      </div>
+    </box-content>
+    <box-content>
+      <div class=" clearfix margin-bottom-10">
+        <!--<span class="pull-left u-from-static">
+                 收到的报名 &nbsp;&nbsp;<label class="badge color-waring" data-bind = "text:$root.receiveApply()"></label>
+        </span>-->
+          <!--<label class="u-col-1 text-right u-form-label u-from-static">状态:</label>
+          <div class="pull-left u-col-1">
+            <u-select style="display:inline-block;width:100px" params='data:{model:$root.queryModel,comboData: $root.comboData},umeta:{"data":"model","field":"status","datasource":"comboData"}'>
+            </u-select>
+          </div>-->
+           <label class="u-col-1 text-right u-form-label u-from-static">价格:</label>
+          <div class="pull-left u-col-3">
+            <input class="u-form-control" style="width:80px" data-bind="value:$root.fromprice" />
+            -
+             <input class="u-form-control" style="width:80px"  data-bind="value:$root.toprice" />
+          </div>
+          <div class="pull-left u-col-2">
+            <input class="u-form-control" placeholder="请输入供应商名称" data-bind="value:$root.keyword" />
+          </div>
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.querylist">查询</button>
+        <div class="pull-right">
+        <!--<button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.preqlfPass">通过</button>-->
+         <!--<button class="btn u-button-warning btn-sm  m-r-sm" data-bind="click:$root.preqlfOut">淘汰</button>-->
+        </div>
+      </div>
+      <u-grid params="config: $root.detail_grid"></u-grid>
+    </box-content>
+  </box>
+</div>
+
+<% if (htmlWebpackPlugin.options.files.js) { %>
+<% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+<script type="text/javascript" src="<%= name %>"></script><% }) %>
+<% } %>
+</body>
+</html>

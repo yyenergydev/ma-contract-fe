@@ -1,0 +1,31 @@
+<style>
+  .refer-search {
+    position: absolute;
+    top: 21px;
+    right: 34px;
+  }
+  .refer-search input {
+    padding-right: 30px;
+  }
+  .refer-search .u-input-group-btn {
+    position: absolute;
+    right: -4px;
+    border: 0;
+  }
+  .refer-search .u-input-group-btn .btn {
+    background: transparent !important;
+  }
+</style>
+<div id="refer_supply">
+  <div class="form-search u-input-group refer-search">
+    <input data-bind="value: searchKey" placeholder="供应商名称或主供物料" class="u-form-control input_search" type="text" />
+    <span class="u-input-group-btn">
+      <button data-bind="click: search" class="btn btn-white no-btn-outline">
+          <i class="fa fa-search"></i>
+      </button>
+    </span>
+  </div>
+  <div class="u-row" style="min-height: 464px">
+    <u-grid params="config: gridconfig"></u-grid>
+  </div>
+</div>

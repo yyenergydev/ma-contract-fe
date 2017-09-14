@@ -1,0 +1,29 @@
+{
+  "locale": "zh_CN",
+  "index": "首页",
+  "title": "标题",
+  "query": "查询",
+  "new": "新增",
+  "status": "状态",
+  "operation": "操作",
+  "createtime": "创建时间",
+  "list_title": "列表标题",
+
+  "bidtrade_title": "标题",
+  "bidtrade_material": "竞价物资",
+  "bt_registEndTime": "报名截止时间",
+  "bt_bidStartTime": "竞价开始时间",
+  "bt_biddingEndTime": "竞价截止时间",
+  "bt_bidConfirmTime": "定标时间",
+  "bt_bidCloseTime": "截止时间",
+  "bt_regnum": "已报名企业数",
+
+  "edit_title": "竞价单",
+  "edit_basic": "基本信息",
+
+  "purchasesrc_title": "采购寻源",
+  "bidmng_title": "竞价管理",
+
+  "preqlf_title": "报名资格预审",
+  "preqlf_submit": "提交审核"
+}

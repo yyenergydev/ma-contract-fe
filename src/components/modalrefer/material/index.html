@@ -1,0 +1,26 @@
+<style>
+  #personrefer .ztree {
+    overflow: hidden;
+  }
+  #tree li span.button.ico_close{
+    overflow: visible !important;
+  }
+  #tree li span.button.ico_docu{
+    overflow: visible !important;
+  }
+  #tree li span.button.ico_open{
+    overflow: visible !important;
+  }
+</style>
+<div id="material_refer">
+  <div class="u-row">
+    <div class="u-col-4" style="height: 464px;overflow: auto;">
+      <u-tree class="form-control" params='data:{model:treemodel,treeSetting:treeOption},
+  umeta:{"id":"tree","data":"model","idField":"id","pidField":"parentid","nameField":"className","setting":"treeSetting"}'>
+      </u-tree>
+    </div>
+    <div class="u-col-8">
+      <u-grid params="config:gridconfig"></u-grid>
+    </div>
+  </div>
+</div>

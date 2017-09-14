@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>
+    <%= htmlWebpackPlugin.options.title %>
+  </title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+      <link rel="stylesheet" type="text/css" href="<%= name %>">
+    <% }) %>
+  <% } %>
+  <style>
+
+  </style>
+</head>
+<body>
+<div id="container" class="animated fadeIn">
+  <box>
+    <box-filter>
+        <div class="pull-right">
+           <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.save">保存</button>
+          <a class="btn btn-outline btn-sm  m-r-sm button-outline" data-bind = "click:function () { return window.history.go(-1)}">返回</a>
+        </div>
+      </box-filter>
+    <box-content params="title: $root.titleList[0]">
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>报名截止时间
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" disabled="true" data-bind="value: $root.model.ref('registEndTime')">
+            <!--<u-datepicker params='data: { model: $root.model }, umeta: { "id": "registEndTime", "data": "model", "field": "registEndTime", "endField": "bidStartTime","type":"u-datetime","format":"YYYY-MM-DD HH:mm:ss"}'></u-datepicker>-->
+          </div>
+          <label class="u-col-2 u-col-offset-1 u-form-group-sm u-form-label text-right width-150">
+            <span class="required">*</span>竞价开始时间
+          </label>
+          <div class="u-col-3">
+             <input type="text" class="u-form-control" disabled="true" data-bind="value: $root.model.ref('bidStartTime')">
+            <!--<u-datepicker params='data: { model: $root.model }, umeta: { "id": "bidStartTime", "data": "model", "field": "bidStartTime", "startField": "registEndTime","type":"u-datetime","format":"YYYY-MM-DD HH:mm:ss"}'></u-datepicker>-->
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>竞价时长
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('biddingTime')">
+          </div>
+          <div class="u-col-1 line-36 fontgrey">(分钟)</div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right width-150">
+            延迟时长
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('delayTime')">
+          </div>
+          <div class="u-col-1 line-36 fontgrey">(分钟)</div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            限时名次
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('promptList')">
+          </div>
+          <div class="u-col-7 line-36 fontgrey">(在限定时间内，有竞价方报价排名符合名次要求，系统自动延时)</div>
+        </div>
+        <!--<div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>竞价方式
+          </label>
+          <div class="u-col-3">
+             <u-radio params='data: { model: $root.model, radioData: $root.bidTypeOpt }, umeta: { "id": "bidType", "data": "model", "field": "bidType", "datasource": "radioData" }'>
+            </u-radio> 
+          </div>
+        </div>-->
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            最小价格步长
+          </label>
+          <div class="u-col-3" style="width:180px;">
+            <u-radio params='data: { model: $root.model, radioData: $root.lowStepOpt }, umeta: { "id": "lowStepOpt", "data": "model", "field": "lowBiddingSteptype", "datasource": "radioData" }'>
+            </u-radio>
+          </div>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('lowBiddingStep')">
+          </div>
+          <div class="u-col-1 text-left line-36 font-grey" data-bind="visible: $root.byamount">(元)</div>
+          <div class="u-col-1 text-left line-36 font-grey" data-bind="visible: $root.bypercentage">(%)</div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            最高限价
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('highPrice')">
+          </div>
+          <div class="u-col-1 line-36 fontgrey">(元)</div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right width-150">
+            最低限价
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('lowPrice')">
+          </div>
+          <div class="u-col-1 line-36 fontgrey">(元)</div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>竞价过程
+          </label>
+          <div class="u-col-8">
+            <u-checkbox params='data: { model: $root.model, checkboxData: $root.bidProcessData }, umeta: { "id": "bidPc", "data": "model", "field": "bidProcess", "datasource": "checkboxData" }'>
+            </u-checkbox>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>资格审核
+          </label>
+          <div class="u-col-6">
+            <u-radio params='data: { model: $root.model, radioData: $root.preQlfOpt }, umeta: { "id": "preQlf", "data": "model", "field": "qualifiedAudit", "datasource": "radioData" }'>
+            </u-radio>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            监督人
+          </label>
+          <div class="u-col-3" >
+            <refer params="type: 'person', showrefer: $root.chooseSupervisor, placeholder: '选择监督人',showtext: $root.model.ref('supervisorName'), value: $root.model.ref('supervisorId')"></refer>
+          </div>
+        </div>
+    </box-content>
+      <!--暂时隐藏报价模板yusn 4-27 -->
+    <!--<box-content params="title: $root.titleList[1]">
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>报价模式
+          </label>
+          <div class="u-col-6">
+            <u-radio params='data: { model: $root.model, radiodata: $root.quoteModeOpt }, umeta: { "id": "qMode", "data": "model", "field": "quoteMode", "datasource": "radiodata" }'>
+            </u-radio>
+          </div>
+        </div>
+        <div id="templete_list">
+          <u-grid params="config: $root.materialListCfg"></u-grid>
+        </div>-->
+        <!--<div class="u-form-group margin-bottom-0" id="set_quotation">
+          <label class="u-col-2 text-left">设置总价报价项</label>
+          <div class="pull-right">
+            <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.addTemplete" style="margin-bottom:10px;"><i class="uf uf-plus"></i>添加报价项信息</button>
+          </div>
+        </div>
+        <div id="templete_list">
+          <u-grid params="config: $root.templeteListCfg"></u-grid>
+        </div>-->
+      <!--</box-content>-->
+     <!--  <box-content params="title: $root.titleList[2]">
+       <div class="u-col-12" id="setpassword">
+         <div class="pull-right" >
+           <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.issuepassword">发布密码</button>
+         </div>
+       </div>
+       <div>
+         <u-grid params="config: $root.passwordManageCfg"></u-grid>
+       </div>
+     </box-content> -->
+  </box>
+</div>
+
+<% if (htmlWebpackPlugin.options.files.js) { %>
+    <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+      <script type="text/javascript" src="<%= name %>"></script>
+    <% }) %>
+  <% } %>
+</body>
+</html>

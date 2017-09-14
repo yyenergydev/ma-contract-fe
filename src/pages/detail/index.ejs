@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+  <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+  <link rel="stylesheet" type="text/css" href="<%= name %>"> <% }) %>
+  <% } %>
+</head>
+<body>
+<div id="container" class="animated fadeIn">
+  <box>
+    <breadcrumb></breadcrumb>
+    <box-filter params="title:'${__('list_title')}', q: $root.q, placeholder:'输入我',query: $root.query">
+      <div>
+        <a href="../edit/index.${__('locale')}.html" class="btn btn-primary btn-sm  m-r-sm" >${__("new")}</a>
+        <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.clickme">立项2</button>
+        <button class="btn btn-primary btn-sm  m-r-sm">立项3</button>
+      </div>
+    </box-filter>
+    <box-content class="list-content">
+      <box-tabs>
+        <state-item params="state: 0,title:'未分配',count: 0, click:$root.stateclick, active: true"></state-item>
+        <state-item params="state: 1,title:'已分配',count: 1, click:$root.stateclick"></state-item>
+      </box-tabs>
+      <grid params="config: $root.config"></grid>
+    </box-content>
+  </box>
+</div>
+
+<% if (htmlWebpackPlugin.options.files.js) { %>
+<% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+<script type="text/javascript" src="<%= name %>"></script><% }) %>
+<% } %>
+</body>
+</html>

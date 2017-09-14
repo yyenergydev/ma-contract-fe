@@ -1,0 +1,83 @@
+.refer-ctn{
+  .form-ctn{
+    position: relative;
+    &:hover .search-form{
+      display: block;
+    }
+    .search-form {
+      &.hidden{
+        display: none;
+      }
+      display: none;
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      width: 100%;
+      background-color: #FFF;
+      .auto-ctn{
+        ul{
+          border: solid 1px @color-primary;
+          border-top: 0;
+          margin-top: -1px;
+          margin:0;
+          padding:0;
+          list-style: none;
+          li{
+            padding-left: 12px;
+            line-height: 34px;
+            cursor: pointer;
+            .fa-check{
+              position: relative;
+              right: 4px;
+              top: 9px;
+              opacity: 0;
+            }
+            &:hover .fa-check{
+              opacity: 1;
+            }
+          }
+          li:hover{
+            background-color: @color-primary;
+            span{
+              color:#FFF;
+            }
+          }
+        }
+      }
+    }
+    .u-input-group{
+      width: 100%;
+      .u-form-control {
+        width: 100%;
+      }
+      .u-input-group-addon{
+        background: transparent;
+        position: absolute;
+        right: 0;
+        z-index: 1;
+        border: none;
+        top: 3px;
+        height: 38px;
+        cursor: pointer;
+      }
+      .fa-remove{
+        color: #a9a9a9;
+      }
+    }
+  }
+  .tooltip{
+    top: 3px;
+    right: -60px;
+  }
+  .input-form{
+    opacity: 0;
+  }
+  &:hover {
+    .input-form{
+      opacity: 1;
+    }
+    .tooltip{
+      opacity: 1;
+    }
+  }
+}

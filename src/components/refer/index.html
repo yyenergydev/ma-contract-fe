@@ -1,0 +1,40 @@
+<div class="refer-ctn">
+  <div class="form-ctn">
+    <div class="u-input-group m-b-0">
+      <div class="u-form-control">
+        <div class="u-form-control-text">
+          <div class="u-form-text" data-bind="text: showtext"></div>
+        </div>
+      </div>
+      <span class="u-input-group-addon" data-bind="click: showrefer"><span class="fa fa-list"></span></span>
+    </div>
+    <div class="search-form" data-bind="visible: showsearch">
+      <div class="input-form u-input-group m-b-0">
+        <input type="text" class="u-form-control" data-bind="event:{mouseover:mouseover},value:queryvalue,attr:{placeholder:placeholder},valueUpdate:'input'">
+        <!--span class="u-input-group-addon" data-bind="click:reset"><span class="fa fa-remove"></span></span-->
+        <span class="u-input-group-addon" data-bind="click: showrefer"><span class="fa fa-list"></span></span>
+      </div>
+      <div class="auto-ctn">
+        <!-- ko if: searchlist().length >0 -->
+        <ul data-bind="foreach: searchlist">
+          <li data-bind="click:$parent.handleclick">
+            <span class="u-checkbox-label" data-bind="text: name"></span>
+            <span class="pull-right fa fa-check"></span>
+          </li>
+        </ul>
+        <!-- /ko -->
+        <!-- ko if: searchlist().length == 0 -->
+        <ul>
+          <li>
+            <span class="u-checkbox-label" style="font-size: 12px" data-bind="text: loadingtext">暂无数据</span>
+          </li>
+        </ul>
+        <!-- /ko -->
+      </div>
+    </div>
+  </div>
+  <!--div class="tooltip right">
+    <<div class="tooltip-arrow"></div>
+    <<div class="tooltip-inner">高级查询</div>
+  </div-->
+</div>

@@ -1,0 +1,18 @@
+<div id="personrefer">
+  <div class="u-row">
+    <div class="u-col-4" style="height: 464px;overflow: auto;">
+      <u-tree class="form-control" params='data:{model:treemodel,treeSetting:treeOption},
+  umeta:{"id":"tree","data":"model","idField":"id","pidField":"parentId","nameField":"orgName","setting":"treeSetting"}'>
+      </u-tree>
+    </div>
+    <div class="u-col-8">
+      <u-grid params="config:config"></u-grid>
+    </div>
+  </div>
+
+</div>
+<style>
+  #personrefer .ztree {
+    overflow: hidden;
+  }
+</style>

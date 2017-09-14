@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+  <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+  <link rel="stylesheet" type="text/css" href="<%= name %>"> <% }) %>
+  <% } %>
+</head>
+<body>
+<div id="container" class="animated fadeIn">
+  <box>
+    <breadcrumb params="path:'edit'"></breadcrumb>
+    <box-filter params="title:'${__('edit_title')}'">
+      <div class="pull-right">
+        <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click:$root.save2"><span class="fa fa-save"></span>&nbsp;保存</button>
+        <a href="../list/index.${__('locale')}.html" class="btn btn-outline btn-sm m-r-sm"><span class="fa fa-reply"></span>&nbsp;返回</a>
+      </div>
+    </box-filter>
+    <box-content params="title: $root.title()">
+      <div class="u-row">
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            ${__('title')}
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" data-bind="value:$root.model.ref('defProjectPsnName')" placeholder="input me">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            ${__('title')}
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" placeholder="input me" data-bind="value: $root.model.ref('defProjectPsnTel')">
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            ${__('title')}
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" placeholder="input me">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            ${__('title')}
+          </label>
+          <div class="u-col-3">
+            <input type="text" class="u-form-control" placeholder="input me">
+          </div>
+        </div>
+      </div>
+    </box-content>
+    <box-content params="title: '表格显示'">
+      <u-grid params="config: $root.config"></u-grid>
+    </box-content>
+    <box-content params="title: '可编辑表格显示'">
+      <div class="btn btn-primary text-right" data-bind="click: $root.addRow">添加</div>
+      <u-grid params="config: $root.editgridconfig"></u-grid>
+    </box-content>
+    <box-content params="title: $root.thirdtitle(), model: $root.model">
+      <div class="u-row">
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">日期选择:</label>
+          <div class="u-col-3">
+            <u-datepicker params='data:{model:$root.model,comboData: $root.comboData},umeta:{"id":"udatetime222","data":"model","field":"createTime","startField":"exceptStartTime"}'></u-datepicker>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">下拉框:</label>
+          <div class="u-col-3">
+            <u-select params='vm:{data:$root.model,datasource: $root.comboData},umeta:{"field":"purchaseType"}'>
+            </u-select>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">switch:</label>
+          <div class="u-col-3">
+            <u-switch params='data:{model:$root.model},umeta:{"data":"model","field":"isCtrlOpen"}'>
+            </u-switch>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">checkbox:</label>
+          <div class="u-col-3">
+            <u-checkbox params='data:{model:$root.model,checkboxData:$root.checkboxData},umeta:{"id":"c1","data":"model","field":"isCtrlOpen","datasource":"checkboxData"}'>
+            </u-checkbox>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">radio:</label>
+          <div class="u-col-3">
+            <u-radio params='data:{model:$root.model,radiodata:$root.radiodata},umeta:{"id":"r1","data":"model","field":"openTenderType","datasource":"radiodata"}'>
+            </u-radio>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">textarea:</label>
+          <div class="u-col-3">
+            <textarea class="u-form-control" data-bind="value:$root.model.ref('enterpriseName')"></textarea>
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">部门参照:</label>
+          <div class="u-col-3">
+            <refer params="type: 'org', showrefer: $root.showorgrefer, onselect: $root.select,placeholder: '输入查询', showtext: $root.model.ref('enterpriseName'), value: $root.model.ref('enterpriseId')"></refer>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 text-right u-form-label">人员参照:</label>
+          <div class="u-col-3">
+            <refer params="type: 'person', showrefer: $root.showrefer, onselect: $root.select,placeholder: '输入查询', showtext: $root.model.ref('enterpriseName'), value: $root.model.ref('enterpriseId')"></refer>
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label for="" class="u-col-2 text-right">供应商列表选择</label>
+          <div data-bind="click: $root.chooseSupplyDoc" class="u-col-2">
+            <div class="btn btn-primary">选择供应商</div></div>
+          <div class="u-col-8">
+            <div data-bind="foreach: $root.model.ref('statusName')">
+              <span data-bind="text:$data.name"></span>&nbsp;
+            </div>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <div class="u-col-2">
+
+          </div>
+          <div class="u-col-10 text-left">
+            <button class="btn btn-primary" data-bind="click: $root.modalclick" type="button">普通弹框</button>
+            <br>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <div class="u-col-2 text-right">单选供应商</div>
+          <div class="u-col-3">
+            <refer params="type: 'supplydoc', showrefer: $root.singlesupplydoc, onselect: $root.select,placeholder: '输入查询', showtext: $root.model.ref('enterpriseName'), value: $root.model.ref('enterpriseId')"></refer>
+          </div>
+        </div>
+        <br>
+        <div class="u-form-roup">
+        获取值:app.getComp("id")----id 是对应组件初始化的id <br>
+
+        实际编辑态值会自动保存到model对应字段:参考app.dataTables.model.getCurrentRow().getValue("openTenderType")
+      </div>
+      </div>
+    </box-content>
+    <box-content>
+      <div class="u-row">
+
+      </div>
+    </box-content>
+  </box>
+</div>
+
+<% if (htmlWebpackPlugin.options.files.js) { %>
+<% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+<script type="text/javascript" src="<%= name %>"></script><% }) %>
+<% } %>
+</body>
+</html>

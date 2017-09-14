@@ -1,0 +1,16 @@
+<div class="box-title">
+  <div class="breadcrumb-nav">
+    <a data-bind="attr: {href: home}">
+      <span data-bind="text: homeText"></span>
+    </a>
+    <nav data-bind="foreach: titleList">
+      <i class="fa fa-angle-right"></i>
+      <span data-bind="if: !level">
+        <span class="nav-title" data-bind="text: text"></span>
+      </span>
+      <a data-bind="if: level, attr: {href: url}">
+        <span data-bind="text: text"></span>
+      </a>
+    </nav>
+  </div>
+</div>

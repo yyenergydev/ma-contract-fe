@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title><%= htmlWebpackPlugin.options.title %></title>
+    <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+    <link rel="stylesheet" type="text/css" href="<%= name %>"> <% }) %>
+    <% } %>
+</head>
+<body>
+  <style type="text/css">
+
+  	.sub-title{
+  	  font-weight: 700;
+  	}
+    .u-row {
+      margin-top: 10px;
+    }
+    .flcard {
+      max-width: 260px;
+      padding: 10px;
+      box-shadow: 1px -2px 10px #C2C3C5;
+    }
+    .time-info{
+      color: #F44336;
+    }
+  </style>
+ <div id="container" class="animated fadeIn">
+    <box>
+      <breadcrumbs params="path:'applyBd'"></breadcrumbs>
+      <box-filter params="title: '竞价报名详情'">
+        <div class="pull-right">
+          <a class="btn btn-outline btn-sm  m-r-sm button-outline" data-bind = "click:function () { return window.history.go(-1)}"><span class='fa fa-reply'></span>返回</a>
+        </div>
+      </box-filter>
+      <box-content>
+         <div class="main-title u-row">
+           <div class="u-col-sm-12">
+              诚邀您参加"<strong style='color:red;font-size:20px'data-bind="text: $root.model.ref('title')"></strong>"项目
+           </div>
+         </div>
+        <div class="u-row">
+            <div class="u-widget-heading clearfix margin-top-10" >
+              <div class="pull-left " style="line-height: 34px; padding-left: 20px;">
+                  <div class="pull-left">
+                    <span>编号:</span> <span data-bind = "text: $root.model.ref('code')"></span>
+                  </div>
+                  <div class="pull-left" style="margin-left: 130px;">
+                    <span>发起公司:</span> <span data-bind="text: $root.model.ref('enterpriseName')"></span>
+                  </div>
+              </div>
+         </div>
+          <div class="u-col-md-4">
+              <div class="u-widget  u-widget-right">
+                  <div class="u-widget-body">
+                      <ul class="u-form-browse">
+                          <li class="m-v">
+                              <label class="u-control-label w-sm">报名截止时间:</label>
+                              <span data-bind="text: $root.model.ref('registEndTime')"></span>
+                          </li>
+                          <li class="m-v">
+                              <label class="u-control-label w-sm">竞价开始时间:</label>
+                              <span data-bind="text: $root.model.ref('bidStartTime')" ></span>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+           <div class="u-col-md-4">
+              <div class="u-widget  u-widget-right">
+                  <div class="u-widget-body">
+                      <ul class="u-form-browse">
+                          <li class="m-v">
+                              <label class="u-control-label w-sm">竞价保证金:</label>
+                              <span data-bind="text: $root.model.ref('bidDeposit')"></span>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+          <div class="u-col-md-4">
+              <div class="u-widget  u-widget-right" data-bind="visible:!$root.issupplyLinkman()">
+                  
+                  <div class="u-widget-body">
+                      <ul class="u-form-browse flcard">
+                          <li class="m-v">
+                              <label class="sub-title">
+                                <span data-bind="text: $root.model.ref('enterpriseName')">
+                              </label>
+                          </li>
+                           <li class="m-v">
+                              <label class="">联系人:</label>
+                               <span data-bind="text: $root.model.ref('contact')">
+                          </li>
+                           <li class="m-v">
+                              <label class="">联系电话:</label>
+                               <span data-bind="text: $root.model.ref('tel')">
+                          </li>
+                           <li class="m-v">
+                              <label class="">邮箱:</label>
+                               <span data-bind="text: $root.model.ref('email')">
+                          </li>
+                           <li class="m-v">
+                              <label class="">传真:</label>
+                               <span data-bind="text: $root.model.ref('fax')">
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="u-widget  u-widget-right" data-bind="visible:$root.issupplyLinkman()">
+                  <div class="u-widget-body">
+                      <ul class="u-form-browse flcard">
+                          <li class="m-v">
+                              <label class="sub-title">
+                                <span data-bind="text: $root.model_linkman.ref('enterpriseName')">
+                              </label>
+                          </li>
+                           <li class="m-v">
+                              <label class="">联系人:</label>
+                               <span data-bind="text: $root.model_linkman.ref('name')">
+                          </li>
+                           <li class="m-v">
+                              <label class="">联系电话:</label>
+                               <span data-bind="text: $root.model_linkman.ref('phone')">
+                          </li>
+                           <li class="m-v">
+                              <label class="">邮箱:</label>
+                               <span data-bind="text: $root.model_linkman.ref('email')">
+                          </li>
+                           
+                      </ul>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </box-content>
+
+      <box-content>
+        <div class="box-content-title">物资信息</div>
+        <u-grid params="config: $root.detail_grid"></u-grid>
+      </box-content>
+       <box-content>
+        <div class="box-content-title">供应商要求</div>
+        <div class="u-row">
+             <div class="u-form-group">
+              <div class="u-col-md-2 text-right">
+                 <label class="u-form-label">证件要求:</label>
+              </div>
+              <!--<div class="u-col-md-2 pull-left">
+                    <div class="u-col-md-offset-2 u-col-md-10" data-bind="visible:$root.model.ref('supCertificateRequire')()==2">五证合一</div>
+                    <div class="u-col-md-offset-2 u-col-md-10" data-bind="visible:$root.model.ref('supCertificateRequire')()!=2">三证合一</div>
+              </div>-->
+              <div class="u-col-md-10" style="margin-left:180px" data-bind="visible:$root.model.ref('supCertificateRequire')()==1">
+                  <div class="pull-left u-col-md-10" style="line-height: 15px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">统一社会信用证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:100px;line-height: 15px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_one',readonly:true,id:$root.model.ref('id'), index:-1, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+                  <div class="pull-left u-col-md-10" style="line-height: 15px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">银行开户许可证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:100px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_two',readonly:true,id:$root.model.ref('id'), index:-2, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+                  <div class="pull-left u-col-md-10" style="line-height: 15px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">经营许可证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:127px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_three',readonly:true,id:$root.model.ref('id'), index:-3, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+              </div>
+               <div class="u-col-md-10" style="margin-left:180px" data-bind="visible:$root.model.ref('supCertificateRequire')()==2">
+                  <div class="pull-left u-col-md-10" style="line-height: 15px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">营业执照</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:160px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_four',readonly:true,id:$root.model.ref('id'), index:-4, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+                  <div class="pull-left u-col-md-10" style="line-height: 15px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">税务登记证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:145px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_five',readonly:true,id:$root.model.ref('id'), index:-5, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+                  <div class="pull-left u-col-md-10" style="line-height: 15px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">组织机构代码证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:117px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_six',readonly:true,id:$root.model.ref('id'), index:-6, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+                  <div class="pull-left u-col-md-10" style="line-height: 25px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">银行开户许可证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:117px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_seven',readonly:true,id:$root.model.ref('id'), index:-7, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+                  <div class="pull-left u-col-md-10" style="line-height: 25px; padding-left: 20px;">
+                    <div class="pull-left" >
+                      <label class="u-col-md-30 text-left">经营许可证</label>
+                    </div>
+                    <div class="pull-left" style="margin-left:144px">
+                      <filesupload  params="id:$root.model.ref('id'),callbackDatas:function(data){},groupname:'bidtrade_eight',readonly:true,id:$root.model.ref('id'), index:-8, enterpriseId:$root.model_pm.ref('enterpriseId')">
+                      </filesupload>
+                    </div>
+                  </div>
+              </div>
+              
+           </div>
+        </div>
+        <div class="u-row">
+          <div class="u-form-group">
+              <div class="u-col-md-2 text-right">
+                 <label class="u-form-label">其他要求:</label>
+              </div>
+              <div class="u-col-md-10" >
+                   <div class="clearfix margin-top-10">
+                      <div class="pull-left" style="margin-right: 60px;">
+                         <span data-bind="text: $root.model.ref('supOtherRequire')">
+                      </div>
+                  </div>
+              </div>
+           </div>
+        </div>
+      </box-content>
+      <box-content>
+        <div class="box-content-title">竞价承诺</div>
+        <form>
+          <div class="u-row">
+            <div class="u-form-group">
+              <div class="u-col-md-2 text-right">
+                 <label class="u-form-label">竞价承诺:</label>
+              </div>
+              <div class="u-col-md-10" >
+                  <textarea name="" style="width: 400px;" data-bind = "text:$root.model_pm.ref('bidtradePromise'), enable:false"></textarea>
+              </div>
+           </div>
+         </div>
+         <div class="u-row">
+          <div class="u-form-group">
+            <div class="u-col-md-2 text-right">
+               <label class="u-form-label">税务发票信息:</label>
+            </div>
+            <div class="u-col-md-offset-2" >
+                <div class="clearfix margin-top-10">
+                    <div class="pull-left" style="margin-right: 60px;">
+                        <div data-bind='visible:$root.model_pm.ref("bidtradeInvoiceInfo")()==0'>不提供</div>
+                        <div data-bind='visible:$root.model_pm.ref("bidtradeInvoiceInfo")()==1'>普通发票</div>
+                        <div data-bind='visible:$root.model_pm.ref("bidtradeInvoiceInfo")()==2'>增值税发票</div>
+                    </div>
+                    </div>
+            </div>
+           </div>
+          <div class="u-form-group">
+            <div class="u-col-md-2 text-right">
+               <label class="u-form-label">附件:</label>
+            </div>
+            <div class="u-col-md-10" >
+                <filesupload params="bidtradeId:$root.model.ref('bidtradeId'),callbackDatas:function(data){techAttachList(data)},groupname:'bidtrade_editor',readonly:true,id:$root.model.ref('id'), index:0, enterpriseId:$root.model.ref('enterpriseId')">
+				</filesupload>
+            </div>
+           </div>
+         </div>
+          <div class="u-row">
+            	<div class="u-col-md-10 u-col-md-offset-1">
+            	  <div class="u-form-group">
+                     <input type="checkbox" data-bind="checked: $root.promisStatus, enable:false"/>我承诺我提供的材料真实可靠。
+            	  </div>
+            	</div>
+            </div>
+        </div>
+      </form>
+      </box-content>
+
+    </box>
+  </div>
+  <% if (htmlWebpackPlugin.options.files.js) { %>
+  <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+  <script type="text/javascript" src="<%= name %>"></script><% }) %>
+  <% } %>
+</body>
+</html>

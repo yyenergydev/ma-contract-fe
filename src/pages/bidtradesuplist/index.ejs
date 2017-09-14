@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+    <link rel="stylesheet" type="text/css" href="<%= name %>"> <% }) %>
+    <% } %>
+</head>
+<body>
+  <div id="container" class="animated fadeIn">
+    <box>
+      <breadcrumbs params="path: 'btSupList'"></breadcrumbs>
+      <box-filter params="title:'竞价管理'">
+      </box-filter>
+      <box-content>
+        <box-tabs>
+          <state-tabs params="items: $root.statuItems, handler: $root.stateclick, index: $root.stateindex"></state-tabs>
+        </box-tabs>
+        <u-grid params="config: $root.gridconfig"></u-grid>
+      </box-content>
+    </box>
+  </div>
+  <% if (htmlWebpackPlugin.options.files.js) { %>
+  <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+  <script type="text/javascript" src="<%= name %>"></script><% }) %>
+  <% } %>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+    <link rel="stylesheet" type="text/css" href="<%= name %>"> <% }) %>
+    <% } %>
+    <style media="screen">
+      #nav {
+        border-right: 3px solid #8D8D8D;
+        width: 106px;
+        float: left;
+        text-align: center;
+      }
+      #nav li { margin-top: 15px; }
+      #nav li a { text-decoration: none;}
+      #page { overflow: auto; }
+    </style>
+</head>
+<body>
+  <div id="nav">
+    <ul>
+      <li><button class="btn btn-primary" onclick="relogin()">重新登录</button></li>
+<!--       <li><a href="/bidtradelist/index.zh_CN.html?type=1" target="bidtradepage" class="btn btn-primary">竞价管理(竞买)</a></li>
+      <li><a href="/bidtradelist/index.zh_CN.html?type=2" target="bidtradepage" class="btn btn-primary">竞价管理(竞卖)</a></li>
+      <li><a href="/bidtradesuplist/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">竞价管理<br>供应商</a></li> -->
+      <li><a href="/bidtradeeditor/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">编辑竞价单</a></li>
+      <!-- <li><a href="/biddingSettings/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">竞价设置</a></li>
+      <li><a href="/prequalification/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">资格预审</a></li>
+      <li><a href="/biddingApply/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">竞价报名</a></li>
+      <li><a href="/biddingHall/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">竞价大厅</a></li>
+      <li><a href="/biddingMonitor/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">监控大厅</a></li>
+      <li><a href="/bidlist/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">竞价清单</a></li> -->
+      <li><a href="/contracttype/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">合同类型</a></li>
+    </ul>
+  </div>
+  <div id="page">
+    <iframe id="bidtradepage" name="bidtradepage" src="" width="100%" border="0" frameborder="0"></iframe>
+  </div>
+  <% if (htmlWebpackPlugin.options.files.js) { %>
+  <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+  <script type="text/javascript" src="<%= name %>"></script><% }) %>
+  <% } %>
+  <script>
+    function relogin(){
+      window.localStorage.clear();
+      window.location.href = '/yuncai/mobile/login.html?r='+window.location.href;
+    }
+
+    $("#nav").height(document.body.scrollHeight);
+    $("#bidtradepage").height(document.body.scrollHeight);
+  </script>
+</body>
+</html>

@@ -9,21 +9,21 @@ import 'collection/department'
 import 'collection/contracttype'
 import contracttype from 'model/contracttype'
 import {Post} from 'common'
-import Adapter from './adapter'
-import chooseRefer from 'components/modalrefer/chooseRefer'
+// import Adapter from './adapter'
+// import chooseRefer from 'components/modalrefer/chooseRefer'
 /* eslint-disable */
 /* global ko u $ __ */
 
 let typeId = window.global.query('id')
 var viewModel
 
-const chooseOrg = chooseRefer('org', 'component', {
-  model: contracttype,
-  adapter: Adapter.org
-}, {
-  repeatable: false,
-  multiSelect: true
-})
+// const chooseOrg = chooseRefer('org', 'component', {
+//   model: contracttype,
+//   adapter: Adapter.org
+// }, {
+//   repeatable: false,
+//   multiSelect: true
+// })
 
 function init () {
   let collection = Collection.create('collection.contracttype')
@@ -59,15 +59,16 @@ function init () {
         }
       }
     },
-    billcontrtype: {
-      id: ko.observable(typeId),
-      code: ko.observable(true),
-      name: ko.observable(true),
-      templateId: ko.observable(true),
-      useScope: ko.observable(true),
-      remark: ko.observable(true)
-    },
-    chooseOrg
+    // billcontrtype: {
+    //   id: ko.observable(typeId),
+    //   code: ko.observable(true),
+    //   name: ko.observable(true),
+    //   templateId: ko.observable(true),
+    //   useScope: ko.observable(true),
+    //   remark: ko.observable(true)
+    // },
+    model: contracttype.datatable,
+    // chooseOrg
   }
   window.app = window.u.createApp({
     el: 'body',

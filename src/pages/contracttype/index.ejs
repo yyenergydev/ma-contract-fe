@@ -12,7 +12,7 @@
 <body>
   <div id="container" class="animated fadeIn">
     <box>
-      <breadcrumbs params="path:'editList'"></breadcrumbs>
+      <!-- <breadcrumbs params="path:'editList'"></breadcrumbs> -->
       <box-filter>
       <!-- <box-sticky params="title:'合同类型'" style="font-size:18px;"> -->
         <div class="u-col-8 text-right">
@@ -36,7 +36,7 @@
                   上级合同类型
                 </label>
                 <div class="u-col-3">
-                  <span data-bind="text: $root.pname"></span>
+                  <span data-bind="value: $root.model.ref('pname')"></span>
                 </div>
               </div>
               <div class="u-form-group">
@@ -44,8 +44,7 @@
                   <span class="required">*</span>合同类型编码
                 </label>
                 <div class="u-col-3">
-                  <!-- <input type="text" class="u-form-control" data-bind="value: $root.model.ref('code')"> -->
-                  <input type="text" class="u-form-control" data-bind="value: $root.code">
+                  <input type="text" class="u-form-control" data-bind="value: $root.model.ref('code')">
                 </div>
               </div>
               <div class="u-form-group">
@@ -53,23 +52,23 @@
                   <span class="required">*</span>合同类型名称
                 </label>
                 <div class="u-col-3">
-                  <input type="text" class="u-form-control" data-bind="value: $root.name">
+                  <input type="text" class="u-form-control" data-bind="value: $root.name.ref('name')">
                 </div>
               </div>
               <div class="u-form-group">
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   <span class="required">*</span>会签单模板
                 </label>
-                <div class="u-col-6" id="template" style="width:300px;">
-                  <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择会签单模板', showSearch: false, showtext: $root.model.ref('templateId'), value: $root.model.ref('templateId')"></refer>
-                </div>
+               <!--  <div class="u-col-6" id="template" style="width:300px;">
+                 <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择会签单模板', showSearch: false, showtext: $root.model.ref('templateId'), value: $root.model.ref('templateId')"></refer>
+               </div> -->
               </div>
               <div class="u-form-group">
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   <span class="required">*</span>使用范围
                 </label>
                 <div class="u-col-6" id="useScope" style="width:300px;">
-                  <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择组织', showSearch: false, showtext: $root.model.ref('useScope'), value: $root.model.ref('useScope')"></refer>
+                  <!-- <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择组织', showSearch: false, showtext: $root.model.ref('useScope'), value: $root.model.ref('useScope')"></refer> -->
                 </div>
               </div>
               <div class="u-form-group">
@@ -77,7 +76,7 @@
                   备注
                 </label>
                 <div class="u-col-3">
-                  <input type="text" class="u-form-control" data-bind="value: $root.remark">
+                  <input type="text" class="u-form-control" data-bind="value: $root.model.ref('remark')">
                 </div>
               </div>
 

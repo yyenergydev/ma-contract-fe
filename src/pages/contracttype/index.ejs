@@ -17,8 +17,9 @@
       <!-- <box-sticky params="title:'合同类型'" style="font-size:18px;"> -->
         <div class="u-col-8 text-right">
           <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.add"><span class="fa fa-plus"></span>&nbsp;新增</button>
-          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.modify">修改</button>
-          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.delete">删除</button>
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.save"><span class="fa fa-save"></span>&nbsp;保存</button>
+          <!-- <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.modify">修改</button> -->
+          <button class="btn btn-danger btn-sm" data-bind="click: $root.delete"><span class="fa fa-trash"></span>&nbsp;删除</button>
         </div>
       <!-- </box-sticky> -->
       </box-filter>
@@ -27,7 +28,7 @@
           <div class="u-row">
             <div class="u-col-4" style="height: 464px;overflow: auto;">
               <u-tree class="form-control" params='data:{model:$root.treemodel,treeSetting:$root.treeOption},
-                umeta:{"id":"tree","data":"model","idField":"id","pidField":"parentId","nameField":"orgName","setting":"treeSetting"}'>
+                umeta:{"id":"tree","data":"model","idField":"id","pidField":"parentId","nameField":"name","setting":"treeSetting"}'>
               </u-tree>
             </div>
             <div class="u-col-8">
@@ -35,15 +36,15 @@
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   上级合同类型
                 </label>
-                <div class="u-col-3">
-                  <span data-bind="value: $root.model.ref('pname')"></span>
-                </div>
+                <!-- <div class="u-col-6">
+                  <input type="text" class="u-form-control" data-bind="value: $root.model.ref('parentName')" readonly="true">
+                </div> -->
               </div>
               <div class="u-form-group">
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   <span class="required">*</span>合同类型编码
                 </label>
-                <div class="u-col-3">
+                <div class="u-col-6">
                   <input type="text" class="u-form-control" data-bind="value: $root.model.ref('code')">
                 </div>
               </div>
@@ -51,36 +52,34 @@
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   <span class="required">*</span>合同类型名称
                 </label>
-                <div class="u-col-3">
-                  <input type="text" class="u-form-control" data-bind="value: $root.name.ref('name')">
+                <div class="u-col-6">
+                  <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
                 </div>
               </div>
               <div class="u-form-group">
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   <span class="required">*</span>会签单模板
                 </label>
-               <!--  <div class="u-col-6" id="template" style="width:300px;">
-                 <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择会签单模板', showSearch: false, showtext: $root.model.ref('templateId'), value: $root.model.ref('templateId')"></refer>
-               </div> -->
+                <div class="u-col-6" id="template">
+                 <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择会签单模板', showSearch: false, showtext: $root.model.ref('templateName'), value: $root.model.ref('templateId')"></refer>
+               </div>
               </div>
               <div class="u-form-group">
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   <span class="required">*</span>使用范围
                 </label>
-                <div class="u-col-6" id="useScope" style="width:300px;">
-                  <!-- <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择组织', showSearch: false, showtext: $root.model.ref('useScope'), value: $root.model.ref('useScope')"></refer> -->
+                <div class="u-col-6" id="useScope">
+                  <refer params="flag:0,type: 'org', showrefer: $root.chooseOrg, placeholder: '选择组织', showSearch: false, showtext: $root.model.ref('useScopeNames'), value: $root.model.ref('useScopeIds')"></refer>
                 </div>
               </div>
               <div class="u-form-group">
                 <label class="u-col-3 u-form-group-sm u-form-label text-right">
                   备注
                 </label>
-                <div class="u-col-3">
+                <div class="u-col-6">
                   <input type="text" class="u-form-control" data-bind="value: $root.model.ref('remark')">
                 </div>
               </div>
-
-
 
             </div>
           </div>

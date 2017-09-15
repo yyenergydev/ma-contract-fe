@@ -5,7 +5,8 @@ import 'model/contracttype'
 Collection.define('collection.contracttype', {
   model: 'model.contracttype',
   proxy: {
-    get: '/ma-contract/contract/typetree'
+    get: '/ma-contract/contracttype/list',
+    loadmethod: 'post'
   }
 })
 

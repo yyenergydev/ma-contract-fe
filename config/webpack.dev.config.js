@@ -110,6 +110,12 @@ configs.forEach(function(config){
         changeOrigin: true,
         host: 'yc.yonyou.com'
         // host: '10.6.253.33'
+      },
+      '/ma-contract': {
+        target: 'http://10.6.212.164:9999',
+        secure: false,
+        changeOrigin: true,
+        host: '10.6.212.164'
       }
     }
   }

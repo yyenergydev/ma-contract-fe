@@ -6,7 +6,7 @@ Collection.define('collection.contracttype', {
   model: 'model.contracttype',
   proxy: {
     get: '/ma-contract/contracttype/list',
-    loadmethod: 'post'
+    loadmethod: 'get'
   }
 })
 

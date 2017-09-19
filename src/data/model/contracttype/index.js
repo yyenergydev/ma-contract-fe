@@ -8,7 +8,7 @@ Model.define('model.contracttype', {
   },
   meta: {
     id: {type: 'integer'},
-    code: {type: 'string', required: true, nullMsg: '请输入合同类型编码', maxLength: 5},
+    code: {type: 'string', required: true, nullMsg: '请输入合同类型编码', minLength: 5, maxLength: 5},
     name: {type: 'string', required: true, nullMsg: '请输入合同类型名称'},
     level: {type: 'integer'},
     isGlobal: {type: 'string'},

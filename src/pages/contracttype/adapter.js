@@ -1,16 +1,10 @@
-// latest: zhangmyh 2017-3-30 2:38 PM
+// latest: tangh 2017-9-19 2:38 PM
 
 export default {
   org: {
-    textKey: 'template',
+    textKey: 'useScopeNames',
     adapter: {
-      template: 'name'
-    }
-  },
-  org4grid: {
-    adapter: {
-      reqOrgId: 'id',
-      reqOrgName: 'name'
+      useScopeNames: 'name'
     }
   }
 }

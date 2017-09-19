@@ -12,6 +12,7 @@ import {Post} from 'common'
 import Adapter from './adapter'
 import chooseRefer from 'components/modalrefer/chooseRefer'
 import uMessage from 'components/message'
+import { personrefer } from 'components/modalrefer'
 /* eslint-disable */
 /* global ko u $ __ */
 
@@ -101,7 +102,12 @@ function init () {
       // } else {
       //   uMessage('fail', data.msg || '删除失败')
       // }
-    }
+    },
+    chooseContrTpl: choosePerson(function (info) {
+      console.log(info)
+      viewModel.model.setValue('templateId', info.id)
+      viewModel.model.setValue('templateName', info.personname)
+    })
   }
   window.app = window.u.createApp({
     el: 'body',
@@ -148,6 +154,17 @@ function valid () {
   }
   return true
 }
+
+function choosePerson (callback) {
+  return function () {
+    personrefer({
+      onOk: callback,
+      onCancel: doNothing
+    })
+  }
+}
+
+function doNothing () {}
 
 (async function () {
   //界面初始化赋值

@@ -9,8 +9,6 @@ import 'collection/department'
 import 'collection/contracttype'
 import contracttype from 'model/contracttype'
 import {Post} from 'common'
-import Adapter from './adapter'
-import chooseRefer from 'components/modalrefer/chooseRefer'
 import uMessage from 'components/message'
 import { personrefer } from 'components/modalrefer'
 /* eslint-disable */
@@ -19,13 +17,6 @@ import { personrefer } from 'components/modalrefer'
 // let typeId = window.global.query('id')
 var viewModel
 
-const chooseOrg = chooseRefer('org', 'component', {
-  model: contracttype.datatable,
-  adapter: Adapter.org
-}, {
-  repeatable: false,
-  multiSelect: false
-})
 
 function init () {
   // let collection = Collection.create('collection.contracttype')
@@ -64,7 +55,6 @@ function init () {
     },
     model: contracttype.datatable,
     selectObj: {id: null, name: null, level: -1, isparent: false},
-    chooseOrg,
     add,
     save: debounce(async function () {
       console.log(viewModel.model)

@@ -4,15 +4,16 @@ import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
 import {debounce} from 'lodash'
-import Collection from 'common/vo/collection'
+// import Collection from 'common/vo/collection'
 import 'collection/department'
-import 'collection/contracttype'
-import contracttype from 'model/contracttype'
-import {Post} from 'common'
+import 'collection/contract_pu'
+import contracttype from 'model/contract_pu'
+import {Post} from 'common/Ajax'
 import Adapter from './adapter'
 import chooseRefer from 'components/modalrefer/chooseRefer'
 import uMessage from 'components/message'
 import { personrefer } from 'components/modalrefer'
+import {getStore} from 'common/combobox'
 /* eslint-disable */
 /* global ko u $ __ */
 
@@ -29,39 +30,17 @@ const chooseOrg = chooseRefer('org', 'component', {
 
 function init () {
   // let collection = Collection.create('collection.contracttype')
-  let tree = Collection.create('collection.contracttype')
-  tree.load({pageIndex: 0, parentid: 0})//加载合同类型树根节点
+  // let tree = Collection.create('collection.contracttype')
+  // tree.load({pageIndex: 0, parentid: 0})//加载合同类型树根节点
 
   viewModel = {
-    treemodel: tree.datatable,
-    treeOption: {
-      callback: {
-        beforeClick: async function (id, obj) {
-          // if (!obj.flag) {
-          //   var {result} = await Post('/ma-contract/contracttype/list', {
-          //     parentId: obj.id
-          //   })
-          //   // tree.datatable.addSimpleData(result)
-          //   obj.flag = true
-          // }
-          console.log(obj)
-          //右侧合同单据赋值
-          if (obj.id) {
-            contracttype.datatable.ref('id')(obj.id)
-            contracttype.datatable.ref('parentId')(obj.parentId)
-            contracttype.datatable.ref('parentName')(obj.parentName)
-            contracttype.datatable.ref('code')(obj.code)
-            contracttype.datatable.ref('name')(obj.name)
-            contracttype.datatable.ref('remark')(obj.remark)
-            contracttype.datatable.ref('level')(obj.level)
-            viewModel.selectObj.id = obj.id
-            viewModel.selectObj.name = obj.name
-            viewModel.selectObj.level = obj.level
-            viewModel.selectObj.isparent = obj.isparent
-          }
-        }
-      }
-    },
+    titleList: [
+      '标准信息',
+      '业务信息',
+      '合同基本条款'
+    ],
+    comboData1: getStore('sftywb'),
+    comboData2: getStore('sfxtnht'),
     model: contracttype.datatable,
     selectObj: {id: null, name: null, level: -1, isparent: false},
     chooseOrg,

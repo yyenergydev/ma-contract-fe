@@ -23,11 +23,12 @@
   <div id="nav">
     <ul>
       <li><button class="btn btn-primary" onclick="relogin()">重新登录</button></li>
-      <li><a href="/contracttype/index.zh_CN.html" target="bidtradepage" class="btn btn-primary">合同类型</a></li>
+      <li><a href="/contracttype/index.zh_CN.html" target="contractpage" class="btn btn-primary">合同类型</a></li>
+      <li><a href="/contract_pu_edit/index.zh_CN.html" target="contractpage" class="btn btn-primary">采购合同</a></li>
     </ul>
   </div>
   <div id="page">
-    <iframe id="bidtradepage" name="bidtradepage" src="" width="100%" border="0" frameborder="0"></iframe>
+    <iframe id="contractpage" name="contractpage" src="" width="100%" border="0" frameborder="0"></iframe>
   </div>
   <% if (htmlWebpackPlugin.options.files.js) { %>
   <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
@@ -40,7 +41,7 @@
     }
 
     $("#nav").height(document.body.scrollHeight);
-    $("#bidtradepage").height(document.body.scrollHeight);
+    $("#contractpage").height(document.body.scrollHeight);
   </script>
 </body>
 </html>

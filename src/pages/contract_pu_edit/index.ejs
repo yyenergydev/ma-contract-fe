@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+      <link rel="stylesheet" type="text/css" href="<%= name %>">
+    <% }) %>
+  <% } %>
+</head>
+<body>
+  <div id="container" class="animated fadeIn">
+    <box>
+      <!-- <breadcrumbs params="path:'editList'"></breadcrumbs> -->
+      <!-- <box-filter> -->
+      <box-sticky params="title:'合同类型'" style="font-size:18px;">
+        <div class="u-col-6 text-center">
+          <a href="#basicinfo" class="sticky-anchor active">标准信息</a>
+          <a href="#businfo" class="sticky-anchor">业务信息</a>
+          <a href="#items" class="sticky-anchor">合同基本条款</a>
+        </div>
+        <div class="u-col-4 text-right">
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.tmpSave"><span class="fa fa-save"></span>&nbsp;暂存</button>
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.save"><span class="fa fa-send"></span>&nbsp;提交</button>
+          <button class="btn btn-danger btn-sm" data-bind="click: $root.flow"><span class="fa fa-send"></span>&nbsp;流程进度</button>
+        </div>
+      </box-sticky>
+      <!-- </box-filter> -->
+
+      <box-content params="title:$root.titleList[0]" id="basic">
+      <div style="padding-top:60px;">
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            合同编码
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('code')" readonly="true">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>合同名称
+          </label>
+          <div class="u-col-6">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>是否统一文本
+          </label>
+          <div class="u-col-2">
+            <!-- <div class="u-combo u-text u-label-floating"
+              u-meta='{"type":"u-combobox","data":"model","field":"openTenderType","datasource":"comboData1"}'>
+                <input class="u-form-control" />
+                <span class="u-form-control-feedback uf uf-anglearrowdown" data-role="combo-button"></span>
+            </div> -->
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>合同类型
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            合同示范文本
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>是否系统内合同
+          </label>
+          <div class="u-col-2">
+            <!-- <div class="u-combo u-text u-label-floating"
+              u-meta='{"type":"u-combobox","data":"model","field":"openTenderType","datasource":"comboData2"}'>
+                <input class="u-form-control" />
+                <span class="u-form-control-feedback uf uf-anglearrowdown" data-role="combo-button"></span>
+            </div> -->
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>是否资产经营性平台
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            行业类别
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>资金流向
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>合同金额
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>币种
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>合同我方
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>合同对方
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            结算方式
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            合同期限
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            期限单位
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            签订日期
+          </label>
+          <div class="u-col-2">
+            <u-datepicker params='data: { model: $root.model }, umeta: { "id": "signDate", "data": "model", "field": "signDate", "type":"u-date", "format":"YYYY-MM-DD"}'></u-datepicker>
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            支付类型
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>承办人
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>合同承办部门
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            合同状态
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            合同份数
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            变更日期
+          </label>
+          <div class="u-col-2">
+            <u-datepicker params='data: { model: $root.model }, umeta: { "id": "changedate", "data": "model", "field": "changedate", "type":"u-date", "format":"YYYY-MM-DD"}'></u-datepicker>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            是否归档
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            备注
+          </label>
+          <div class="u-col-6">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            制单人
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            制单日期
+          </label>
+          <div class="u-col-2">
+            <u-datepicker params='data: { model: $root.model }, umeta: { "id": "markdate", "data": "model", "field": "markdate", "type":"u-date", "format":"YYYY-MM-DD"}'></u-datepicker>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            附件
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')">
+          </div>
+        </div>
+      </div>
+      </box-content>
+
+      <box-content params="title:$root.titleList[1]" id="basic">
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            中标通知单号
+          </label>
+          <div class="u-col-2">
+            <refer params="type: 'contrTpl', showrefer: $root.chooseContrTpl, placeholder: '选择中标结果', showSearch: false, showtext: $root.model.ref('name'), value: $root.model.ref('name')"></refer>
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>交易类型
+          </label>
+          <div class="u-col-2">
+            <refer params="type: 'contrTpl', showrefer: $root.chooseContrTpl, placeholder: '选择中标结果', showSearch: false, showtext: $root.model.ref('name'), value: $root.model.ref('name')"></refer>
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>计划生效日期
+          </label>
+          <div class="u-col-2">
+            <u-datepicker params='data: { model: $root.model }, umeta: { "id": "valdate", "data": "model", "field": "valdate", "type":"u-date", "format":"YYYY-MM-DD"}'></u-datepicker>
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>计划终止日期
+          </label>
+          <div class="u-col-2">
+            <u-datepicker params='data: { model: $root.model }, umeta: { "id": "invallidate", "data": "model", "field": "invallidate", "type":"u-date", "format":"YYYY-MM-DD"}'></u-datepicker>
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            项目
+          </label>
+          <div class="u-col-2">
+            <refer params="type: 'contrTpl', showrefer: $root.chooseContrTpl, placeholder: '选择中标结果', showSearch: false, showtext: $root.model.ref('name'), value: $root.model.ref('name')"></refer>
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            项目编码
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')" readonly="true">
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            工程编码
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')" readonly="true">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            企业项目结构
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')" readonly="true">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            工程登记号
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')" readonly="true">
+          </div>
+        </div>
+        <div class="u-form-group">
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            ERP定义号
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')" readonly="true">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            项目简称
+          </label>
+          <div class="u-col-2">
+            <input type="text" class="u-form-control" data-bind="value: $root.model.ref('name')" readonly="true">
+          </div>
+          <label class="u-col-2 u-form-group-sm u-form-label text-right">
+            <span class="required">*</span>付款协议
+          </label>
+          <div class="u-col-2">
+            <refer params="type: 'contrTpl', showrefer: $root.chooseContrTpl, placeholder: '选择付款协议', showSearch: false, showtext: $root.model.ref('name'), value: $root.model.ref('name')"></refer>
+          </div>
+        </div>
+      </box-content>
+      <box-content params="title:$root.titleList[2]" id="basic">
+
+      </box-content>
+    </box>
+  </div>
+
+  <% if (htmlWebpackPlugin.options.files.js) { %>
+    <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+      <script type="text/javascript" src="<%= name %>"></script>
+    <% }) %>
+  <% } %>
+</body>
+</html>

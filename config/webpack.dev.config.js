@@ -112,10 +112,12 @@ configs.forEach(function(config){
         // host: '10.6.253.33'
       },
       '/ma-contract': {
-        target: 'http://10.6.212.164:9999',
+        target: 'http://10.6.194.119:9999',
+        // target: 'http://127.0.0.1:9999',
         secure: false,
         changeOrigin: true,
-        host: '10.6.212.164'
+        host: '10.6.194.119'
+        // host: '10.6.253.33'
       }
     }
   }

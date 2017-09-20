@@ -2,5 +2,7 @@
   "index": "合同管理",
   "list": "列表",
   "edit": "新增",
-  "contracttype": "合同类型"
+  "contracttype": "合同类型",
+  "contract_pu_list": "采购合同",
+  "contract_pu_edit": "采购合同"
 }

@@ -1,0 +1,47 @@
+// latest: tangh 2017-9-21 16:09 PM
+import { Model } from 'common'
+
+Model.define('model.contract_pu_terms', {
+  meta: {
+    createTime: '',
+    creator: '',
+    modifiedtime: '',
+    modifier: '',
+    enterpriseId: {type: 'integer'},
+    enterpriseName: {type: 'string'},
+    id: {type: 'integer'},
+    materialClassId: {type: 'integer'},
+    materialClassCode: {type: 'string'},
+    materialClassName: {type: 'string'},
+    materialId: {type: 'integer'},
+    materialCode: {type: 'string'},
+    materialName: {type: 'string'},
+    projectid: {type: 'string'},
+    projectname: {type: 'string'},
+    projectcode: {type: 'string'},
+    engineercode: {type: 'string'},
+    engineerregno: {type: 'string'},
+    erpcode: {type: 'string'},
+    projectnameshort: {type: 'string'},
+    castunitid: {type: 'string'},
+    nastnum: {type: 'integer', default: {value: '1'}},
+    converate: {type: 'string'},
+    cunitid: {type: 'string'},
+    nnum: {type: 'integer'},
+    nqtorigprice: {type: 'string'},
+    nqtorigtaxprice: {type: 'string'},
+    ngprice: {type: 'string'},
+    ngtaxprice: {type: 'string'},
+    norigmny: {type: 'string'},
+    ntaxrate: {type: 'integer'},
+    ftaxtypeflag: {type: 'string'},
+    pricesum: {type: 'string'},
+    nmny: {type: 'integer'},
+    npricesum: {type: 'string'},
+    ctaxcodeid: {type: 'string'},
+    nnosubtaxrate: {type: 'string'},
+    ncalcostmny: {type: 'string'},
+    nordnum: {type: 'string'},
+    nordpricesum: {type: 'string'}
+  }
+})

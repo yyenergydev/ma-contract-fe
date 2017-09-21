@@ -7,10 +7,10 @@ import {debounce} from 'lodash'
 // import Collection from 'common/vo/collection'
 import 'collection/department'
 import 'collection/contract_pu'
-import contracttype from 'model/contract_pu'
-import {Post} from 'common/Ajax'
-import Adapter from './adapter'
-import chooseRefer from 'components/modalrefer/chooseRefer'
+import ctpu from 'model/contract_pu'
+// import {Post} from 'common/Ajax'
+// import Adapter from './adapter'
+// import chooseRefer from 'components/modalrefer/chooseRefer'
 import uMessage from 'components/message'
 import { personrefer } from 'components/modalrefer'
 import {getStore} from 'common/combobox'
@@ -20,12 +20,19 @@ import {getStore} from 'common/combobox'
 // let typeId = window.global.query('id')
 var viewModel
 
-const chooseOrg = chooseRefer('org', 'component', {
-  model: contracttype.datatable,
-  adapter: Adapter.org
-}, {
-  repeatable: false,
-  multiSelect: false
+// const chooseOrg = chooseRefer('org', 'component', {
+//   model: ctpu.datatable,
+//   adapter: Adapter.org
+// }, {
+//   repeatable: false,
+//   multiSelect: false
+// })
+ctpu.datatable.on('isCommonText.valueChange', function (value) {
+  if (value.newValue == 1) {
+    $('#contractText').show()
+  } else {
+    $('#contractText').hide()
+  }
 })
 
 function init () {
@@ -39,42 +46,275 @@ function init () {
       '业务信息',
       '合同基本条款'
     ],
-    comboData1: getStore('sftywb'),
-    comboData2: getStore('sfxtnht'),
-    model: contracttype.datatable,
-    selectObj: {id: null, name: null, level: -1, isparent: false},
-    chooseOrg,
-    add,
+    comboData1: getStore('yesorno'),
+    comboData2: getStore('mnyflow'),
+    comboData3: getStore('settlement'),
+    comboData4: getStore('ymd'),
+    comboData5: getStore('paytype'),
+    comboData6: getStore('status'),
+    ctputerms: {
+      id: 'terms_grid',
+      data: ctpu.associations.terms,
+      type: 'grid',
+      multiSelect: false,
+      editable: true,
+      canDrag: false,
+      canSwap: false,
+      columnMenu: false,
+      fields: [
+        {
+          'field': 'materialCode',
+          'dataType': 'String',
+          'title': '物料编码',
+          'editType': 'string',
+          'renderType': 'timeRender',
+          'sortable': true,
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'materialName',
+          'dataType': 'String',
+          'title': '物料名称',
+          'editType': 'string',
+          'renderType': 'timeRender',
+          'sortable': true,
+          'width': '200',
+          'editable': false
+        }, {
+          'field': 'materialClassCode',
+          'dataType': 'String',
+          'title': '物料分类编码',
+          'editType': 'string',
+          'sortable': true,
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'materialClassName',
+          'dataType': 'String',
+          'title': '物料分类名称',
+          'editType': 'string',
+          'renderType': 'timeRender',
+          'sortable': true,
+          'width': '200',
+          'editable': false
+        }, {
+          'field': 'projectname',
+          'dataType': 'String',
+          'title': '项目',
+          'editType': 'string',
+          'width': '200',
+          'editable': false
+        }, {
+          'field': 'projectcode',
+          'dataType': 'String',
+          'title': '项目编码',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'engineercode',
+          'dataType': 'String',
+          'title': '工程编码',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'engineerregno',
+          'dataType': 'String',
+          'title': '工程登记号',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'erpcode',
+          'dataType': 'String',
+          'title': 'ERP定义号',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'projectnameshort',
+          'dataType': 'String',
+          'title': '项目简称',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'castunitid',
+          'dataType': 'String',
+          'title': '单位',
+          'editType': 'string',
+          'width': '80',
+          'editable': false
+        }, {
+          'field': 'nastnum',
+          'dataType': 'String',
+          'title': '数量',
+          'editType': 'float',
+          'editOptions': {
+            'validType': 'float',
+            'precision': '0',
+            'max': 10000
+          },
+          'sumCol': true,
+          'width': '80',
+          'editable': false
+        }, {
+          'field': 'converate',
+          'dataType': 'String',
+          'title': '换算率',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'cunitid',
+          'dataType': 'String',
+          'title': '主单位',
+          'editType': 'string',
+          'width': '80',
+          'editable': false
+        }, {
+          'field': 'nnum',
+          'dataType': 'String',
+          'title': '主数量',
+          'editType': 'float',
+          'editOptions': {
+            'validType': 'float',
+            'precision': '0',
+            'max': 10000
+          },
+          'sumCol': true,
+          'width': '80',
+          'editable': false
+        }, {
+          'field': 'nqtorigprice',
+          'dataType': 'String',
+          'title': '无税单价',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'nqtorigtaxprice',
+          'dataType': 'String',
+          'title': '含税单价',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'ngprice',
+          'dataType': 'String',
+          'title': '主本币无税单价',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'ngtaxprice',
+          'dataType': 'String',
+          'title': '主本币含税单价',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'norigmny',
+          'dataType': 'String',
+          'title': '无税金额',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'ntaxrate',
+          'dataType': 'String',
+          'title': '税率',
+          'editType': 'string',
+          'width': '60',
+          'editable': false
+        }, {
+          'field': 'ftaxtypeflag',
+          'dataType': 'String',
+          'title': '扣税类别',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'pricesum',
+          'dataType': 'String',
+          'title': '价稅合计',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'nmny',
+          'dataType': 'String',
+          'title': '本币无税金额',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'npricesum',
+          'dataType': 'String',
+          'title': '本币价稅合计',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'ctaxcodeid',
+          'dataType': 'String',
+          'title': '税码',
+          'editType': 'string',
+          'width': '100',
+          'editable': false
+        }, {
+          'field': 'nnosubtaxrate',
+          'dataType': 'String',
+          'title': '不可抵扣税率',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'ncalcostmny',
+          'dataType': 'String',
+          'title': '计成本金额',
+          'editType': 'string',
+          'width': '120',
+          'editable': false
+        }, {
+          'field': 'nordnum',
+          'dataType': 'String',
+          'title': '累计订单主数量',
+          'editType': 'string',
+          'width': '200',
+          'editable': false
+        }, {
+          'field': 'nordpricesum',
+          'dataType': 'String',
+          'title': '累计订单价稅合计',
+          'editType': 'string',
+          'width': '200',
+          'editable': false
+        }
+      ]
+    },
+    model: ctpu.datatable,
+    callbackDatas: function (data) {
+      techAttachList(data)
+    },
+    tmpSave,
     save: debounce(async function () {
-      console.log(viewModel.model)
       //保存校验
       if (valid()) {
-        var data = await contracttype.save()
+        var data = await ctpu.save()
         if (data.status == '1') {
           uMessage('success', data.msg || '保存成功')
-          //重新加载
-          tree.load({parentid: 0})
         } else {
           uMessage('fail', data.msg || '保存失败')
         }
       }
     }, 0),
-    delete: function () {
-      delCheck()
-      var ret = Post ('/ma-contract/contracttype/delete', {id: viewModel.model.getValue('id')})
-      console.log('----' + JSON.stringify(ret))
-      // if (data.status == '1') {
-      //   uMessage('success', data.msg || '删除成功')
-      //   //重新加载
-      //   tree.load({pageIndex: 0, parentid: 0})
-      // } else {
-      //   uMessage('fail', data.msg || '删除失败')
-      // }
-    },
+    flow,
     chooseContrTpl: choosePerson(function (info) {
       console.log(info)
-      viewModel.model.setValue('templateId', info.id)
-      viewModel.model.setValue('templateName', info.personname)
+      viewModel.model.setValue('projectid', info.id)
+      viewModel.model.setValue('projectid', info.personname)
     })
   }
   window.app = window.u.createApp({
@@ -83,56 +323,30 @@ function init () {
   })
 }
 
-function add () {
-  let level = viewModel.selectObj.level
-  if (level == -1) {
-    //增加一级根节点
-    uMessage('warning', '请先选择左侧合同类型节点')
-    return
-    // contracttype.datatable.ref('parentId')(0)
-    // contracttype.datatable.ref('level')(1)
-  } else if (level > 1) {
-    //增加下级节点
-    uMessage('warning', '请先选择一级或二级节点')
-    return
-  } else {
-    contracttype.datatable.ref('parentId')(viewModel.selectObj.id)
-    contracttype.datatable.ref('parentName')(viewModel.selectObj.name)
-    contracttype.datatable.ref('level')(level + 1)
-  }
-  setDefault()
+function tmpSave () {
+  uMessage('warning', '功能开发...')
+}
+
+function flow () {
+  uMessage('warning', '功能开发...')
 }
 
 function setDefault () {
-  viewModel.model.setValue('isGlobal', 0)
-  viewModel.model.setValue('id', null)
-  viewModel.model.setValue('code', null)
-  viewModel.model.setValue('name', null)
-  viewModel.model.setValue('templateId', null)
-  viewModel.model.setValue('useScopeIds', null)
-  viewModel.model.setValue('remark', null)
+  // ctpu.datatable.ref('isCommonText')(2)
+  // ctpu.datatable.ref('isSystemContract')(1)
+  // var comboboxAObject = window.app.getComp('status');
+  // comboboxAObject.setEnable(false);
 }
 
 function valid () {
-  var inputTypeCode = viewModel.model.getValue('code')
-  if (inputTypeCode != null) {
-    if (inputTypeCode.length != 5) {
-      uMessage('warning', '请输入5位长度合同类型编码，如A0000！')
-      return false
-    }
-  }
+  // var inputTypeCode = viewModel.model.getValue('code')
+  // if (inputTypeCode != null) {
+  //   if (inputTypeCode.length != 5) {
+  //     uMessage('warning', '请输入5位长度合同类型编码，如A0000！')
+  //     return false
+  //   }
+  // }
   return true
-}
-
-function delCheck () {
-  if (viewModel.model.getValue('id') == null) {
-    uMessage('warning', '请选择要删除的合同类型')
-    return
-  }
-  if (viewModel.selectObj.isparent) {
-    uMessage('warning', '存在下级节点，不允许删除')
-    return
-  }
 }
 
 function choosePerson (callback) {
@@ -148,5 +362,8 @@ function doNothing () {}
 
 (async function () {
   //界面初始化赋值
+  setDefault()
+
   init()
 })()
+/* eslint-disable */

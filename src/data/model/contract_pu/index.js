@@ -1,5 +1,6 @@
-// latest: tangh 2017-9-20 09:27 AM
+// latest: tangh 2017-9-20 09:27 AM /* eslint-disable */
 import { Model } from 'common'
+import './terms'
 
 Model.define('model.contract_pu', {
   proxy: {
@@ -12,9 +13,9 @@ Model.define('model.contract_pu', {
     billnum: {type: 'string'}, // 单据号
     code: {type: 'string'}, // 合同编码
     name: {type: 'string'}, // 合同名称
-    contactTypeId: {type: 'integer'}, // 合同类型id
-    contactTypeName: {type: 'string'}, // 合同类型名称
-    isCommonText: {type: 'string'},
+    contractTypeId: {type: 'integer'}, // 合同类型id
+    contractTypeName: {type: 'string'}, // 合同类型名称
+    isCommonText: {type: 'string'}, // 是否统一文本
     contractText: {type: 'string'},
     isAssetPlatform: {type: 'string'}, // 是否资产经营性平台
     isSystemContract: {type: 'string'}, // 是否系统内合同
@@ -26,7 +27,7 @@ Model.define('model.contract_pu', {
     contractOwn: {type: 'string'},
     contractOther: {type: 'string'},
     settlement: {type: 'string'}, // 结算方式
-    contractTerm: {type: 'string'}, // 合同期限
+    contractTerm: {type: 'integer'}, // 合同期限
     termUnit: {type: 'string'}, // 期限单位
     signDate: {type: 'date'},
     paytype: {type: 'string'},
@@ -39,12 +40,13 @@ Model.define('model.contract_pu', {
     remark: {type: 'string'},
     marker: {type: 'string'},
     markdate: {type: 'date'},
+    attach: {type: 'string'},
     dr: {type: 'integer'},
     // 业务信息
     biddingno: {type: 'string'}, // 中标通知单号
     ctrantypeid: {type: 'string'}, // 交易类型
-    valdate: {type: 'date'}, // 计划生效日期
-    invallidate: {type: 'date'}, // 计划终止日期
+    valdate: {type: 'date', required: true, nullMsg: '请输入计划生效日期'}, // 计划生效日期
+    invallidate: {type: 'date', required: true, nullMsg: '请输入计划终止日期'}, // 计划终止日期
     projectid: {type: 'string'}, // 项目
     projectcode: {type: 'string'}, // 项目编码
     eps: {type: 'string'}, // 企业项目结构eps
@@ -53,6 +55,12 @@ Model.define('model.contract_pu', {
     erpcode: {type: 'string'}, // erp定义号
     projectnameshort: {type: 'string'}, // 项目简称
     pk_payterm: {type: 'string'} // 付款协议
+  },
+  associations: {
+    terms: {
+      type: 'hasMany', // hasMany
+      model: 'model.contract_pu_terms'
+    }
   }
 })
 

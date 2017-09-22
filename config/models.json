@@ -2,6 +2,7 @@
   "index": "合同管理",
   "list": "列表",
   "edit": "新增",
+  "industrycategory": "行业类别",
   "contracttype": "合同类型",
   "contractlist": "合同草稿箱",
   "contract_pu_edit": "采购合同"

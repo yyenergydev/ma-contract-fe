@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+      <link rel="stylesheet" type="text/css" href="<%= name %>">
+    <% }) %>
+  <% } %>
+</head>
+<body>
+  <div id="container" class="animated fadeIn">
+    <box>
+      <box-filter params="title:'币种'">
+        <div class="pull-right">
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.add"><span class="fa fa-plus"></span>&nbsp;新增</button>
+          <button class="btn btn-danger btn-sm" data-bind="click: $root.deleteBill"><span class="fa fa-trash"></span>&nbsp;删除</button>
+          <button class="btn btn-primary btn-sm  m-r-sm" id="saveId" data-bind="click: $root.save"><span id="savespan" class="fa fa-save"></span>&nbsp;保存</button>
+        </div>
+      </box-filter>
+      <box-content>
+        <u-grid params="config: $root.gridconfig"></u-grid>
+      </box-content>
+    </box>
+  </div>
+
+  <% if (htmlWebpackPlugin.options.files.js) { %>
+    <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+      <script type="text/javascript" src="<%= name %>"></script>
+    <% }) %>
+  <% } %>
+</body>
+</html>

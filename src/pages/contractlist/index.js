@@ -71,6 +71,7 @@ function init () {
       pagination: true,
       autoWidth: true,
       noScroll: true,
+      showNumCol: true,
       fields: columnSetting
     },
     submit,

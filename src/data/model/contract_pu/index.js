@@ -1,4 +1,4 @@
-// latest: tangh 2017-9-20 09:27 AM /* eslint-disable */
+// latest: tangh 2017-9-20 09:27 AM
 import { Model } from 'common'
 import './terms'
 

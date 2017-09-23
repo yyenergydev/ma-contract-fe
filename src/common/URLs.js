@@ -2,7 +2,7 @@ module.exports = {
   bt_commitBt: {
     type: 'set',
     method: 'post',
-    url: '/cpu-bidtrade/commitBidtrade'
+    url: '/ma-contract/contractlist/commit'
   },
   bt_publishBt: {
     type: 'set',
@@ -37,6 +37,6 @@ module.exports = {
   bt_removeBt: {
     type: 'set',
     method: 'post',
-    url: '/cpu-bidtrade/bidtrade/deleteBidtrade'
+    url: '/ma-contract/contractlist/delete'
   }
 }

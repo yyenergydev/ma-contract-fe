@@ -1,10 +1,10 @@
-// latest: tangh 2017-09-21 13:31 AM
+// latest: tangh 2017-09-22 13:31 AM
 import './index.less'
 import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
 import {Post, URLs} from 'common'
-import collection from 'collection/contractlist'
+import collection from 'collection/industrycategory'
 // import uMessage from 'components/message'
 /* eslint-disable */
 /* global ko u app $ __ */
@@ -12,41 +12,45 @@ import collection from 'collection/contractlist'
 var pageIndex = window.global.hash('pageindex') || 0
 var viewModel
 
-// 序号 单据号 合同名称 合同类型 合同金额 合同对方 资金流向 制单日期
 const columnSetting = [{
-  'field': 'billnum',
+  'field': 'code',
   'dataType': 'String',
-  'title': '单据号',
+  'title': '行业类别编码',
   'width': '15%'
 }, {
   'field': 'name',
   'dataType': 'String',
-  'title': '合同名称',
+  'title': '行业类别名称',
   'width': '15%'
 }, {
-  'field': 'contractTypeName',
+  'field': 'creator',
   'dataType': 'String',
-  'title': '合同类型',
+  'title': '创建人',
   'width': '15%'
 }, {
-  'field': 'contractmny',
+  'field': 'creationtime',
   'dataType': 'String',
-  'title': '合同金额',
+  'title': '创建时间',
   'width': '15%'
 }, {
-  'field': 'contractOther',
+  'field': 'modifier',
   'dataType': 'String',
-  'title': '合同对方',
+  'title': '最后修改人',
   'width': '15%'
 }, {
-  'field': 'moneyflow',
+  'field': 'modifytime',
   'dataType': 'String',
-  'title': '资金流向',
+  'title': '最后修改时间',
   'width': '15%'
 }, {
-  'field': 'markdate',
+  'field': 'status',
   'dataType': 'String',
-  'title': '制单日期',
+  'title': '启用状态',
+  'width': '15%'
+}, {
+  'field': 'reason',
+  'dataType': 'String',
+  'title': '停用原因',
   'width': '15%'
 }]
 
@@ -63,7 +67,7 @@ function init () {
       console.log('query' + this.q())
     },
     gridconfig: {
-      id: 'ctgrid',
+      id: 'grid',
       data: collection,
       type: 'grid',
       multiSelect: true,
@@ -73,8 +77,13 @@ function init () {
       noScroll: true,
       fields: columnSetting
     },
-    submit,
-    deleteCt
+    add: function () {
+    },
+    save: function () {
+    },
+    deleteBill,
+    stop: function () {
+    }
   }
   window.app = window.u.createApp({
     el: 'body',
@@ -82,7 +91,7 @@ function init () {
   })
 }
 
-function deleteCt () {
+function deleteBill () {
   let rows = collection.datatable.getSelectedRows()
   let params = {
     ids: rows.map(function (row) {
@@ -93,7 +102,6 @@ function deleteCt () {
     msg: '是否确认删除？',
     title: '删除确认',
     onOk: async function () {
-      // let data = await Post ('/ma-contract/contractlist/delete', {ids: params})
       delCheck()
       let data = await Post(URLs.bt_removeBt.url, params)
       /* if (data.status) {

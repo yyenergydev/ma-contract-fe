@@ -295,9 +295,6 @@ function init () {
       ]
     },
     model: ctpu.datatable,
-    callbackDatas: function (data) {
-      techAttachList(data)
-    },
     tmpSave,
     save: debounce(async function () {
       //保存校验

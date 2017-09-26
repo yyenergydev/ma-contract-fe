@@ -5,6 +5,7 @@
   "industrycategory": "行业类别",
   "currency": "币种",
   "contracttype": "合同类型",
+  "contracttemplate": "合同会签单模板",
   "contractlist": "合同草稿箱",
   "contract_pu_edit": "采购合同"
 }

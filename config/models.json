@@ -1,4 +1,5 @@
 {
+  "login": "登录",
   "index": "合同管理",
   "list": "列表",
   "edit": "新增",
@@ -7,5 +8,7 @@
   "contracttype": "合同类型",
   "contracttemplate": "合同会签单模板",
   "contractlist": "合同草稿箱",
-  "contract_pu_edit": "采购合同"
+  "contract_pu_edit": "采购合同",
+  "basecontract":"基本合同",
+  "contractsampletext":"合同示范文本"
 }

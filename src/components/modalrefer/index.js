@@ -4,6 +4,7 @@ import supplydoc from 'components/modalrefer/supplydoc'
 import singlesupplydoc from 'components/modalrefer/singlesupplydoc'
 import org from 'components/modalrefer/org'
 import material from 'components/modalrefer/material'
+import contracttype from 'components/modalrefer/contracttype'
 /* global u */
 function personrefer (option) {
   u.refer({
@@ -72,6 +73,19 @@ function orgrefer (option) {
     onCancel: option.onCancel
   })
 }
+function contracttyperefer (option) {
+  u.refer({
+    isPOPMode: true,
+    module: contracttype,
+    okId: 'okBtn',
+    contentId: 'refer',
+    width: '800px',
+    title: '选择组织',
+    onOk: option.onOk,
+    onCancel: option.onCancel
+  })
+}
+
 function materialrefer (option) {
   u.refer({
     isPOPMode: true,
@@ -105,6 +119,7 @@ export {
   supplydocrefer,
   singlesupplydocrefer,
   orgrefer,
+  contracttyperefer,
   materialrefer,
   eliminaterefer, // 在这里添加refer参数
   personsrefer

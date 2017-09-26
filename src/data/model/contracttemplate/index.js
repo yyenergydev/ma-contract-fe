@@ -1,4 +1,4 @@
-// latest: tangh 2017-9-25 11:27 AM
+// latest: tangh 2017-9-23 11:27 AM
 import { Model } from 'common'
 
 Model.define('model.contracttemplate', {

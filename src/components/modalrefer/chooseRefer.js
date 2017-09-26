@@ -4,6 +4,7 @@ import { findIndex, forEach, map } from 'lodash'
 import supplier from './supplier'
 import org from './org'
 import material from './material'
+import contracttype from './contracttype'
 
 const referList = {
   supplier: {
@@ -17,6 +18,10 @@ const referList = {
   material: {
     module: material,
     title: '选择物料'
+  },
+  contracttype: {
+    module: contracttype,
+    title: '选择合同类型'
   }
 }
 
@@ -46,7 +51,8 @@ function getRefer (config) {
     contentId: 'refer',
     width: '800px',
     title: '',
-    enterpriseId: window.global.user.enterpriseId,
+    // enterpriseId: window.global.user.enterpriseId,
+    enterpriseId: 11,
     onCancel () {}
   }, config))
 }
@@ -56,7 +62,7 @@ function value4Com (config, referArgs) {
     if (!referArgs.multiSelect) {
       let newdata = adapter(data, config)
       if (config.onBeforeOK && typeof config.onBeforeOK == 'function') {
-        if (!config.onBeforeOK(newdata)) {
+        if (!config.onBeforeOK(newdata, data)) {
           return false
         }
       }

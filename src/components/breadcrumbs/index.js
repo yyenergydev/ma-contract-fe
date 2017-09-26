@@ -61,6 +61,18 @@ const urllist = {
   'recommendSupplier': {
     title: '推荐供应商',
     url: 'recommendSupplier'
+  },
+  'contractList': {
+    title: '合同管理',
+    url: ''
+  },
+  'editBaseContract': {
+    title: '标准合同',
+    url: 'basecontract'
+  },
+  'contractsampletext': {
+    title:'合同示范文本',
+    url: 'contractsampletext'
   }
 }
 
@@ -129,6 +141,12 @@ function breadcrumb (params) {
     /* case 'bidDetailed':
       list = ['bidDetailed', 'btList']
       break */
+    case 'editBaseContract':
+      list = ['editBaseContract', 'contractList']
+      break
+    case 'contractsampletext':
+      list = ['contractsampletext', 'contractList']
+      break
     default:
       break
   }

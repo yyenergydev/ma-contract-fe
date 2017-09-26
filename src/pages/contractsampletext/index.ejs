@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= htmlWebpackPlugin.options.title %></title>
+  <% if (htmlWebpackPlugin.options.files.css) { %>
+    <% htmlWebpackPlugin.options.files.css.forEach(function(name){ %>
+      <link rel="stylesheet" type="text/css" href="<%= name %>">
+    <% }) %>
+  <% } %>
+  <style type="text/css">
+    /* .box-sticky-title{
+      width: 25%!important;
+    } */
+  </style>
+</head>
+<body>
+  <div id="container" class="animated fadeIn">
+    <box>
+      <breadcrumbs params="path:'contractsampletext'"></breadcrumbs>
+      <box-filter>
+      <box-sticky params="title:'合同示范文本'" style="font-size:18px;">
+        <div class="u-col-8 text-right">
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.add"><span class="fa fa-plus"></span>&nbsp;新增</button>
+          <button class="btn btn-primary btn-sm  m-r-sm" data-bind="click: $root.save"><span class="fa fa-save"></span>&nbsp;保存</button>
+          <button class="btn btn-danger btn-sm" data-bind="click: $root.deleteRows"><span class="fa fa-trash"></span>&nbsp;删除</button>
+        </div>
+      </box-sticky>
+      </box-filter>
+      <box-content params="title:'合同类型'" id="basic">
+        <div id="treebill">
+          <div class="u-row">
+            <div class="u-col-4" style="height: 464px;overflow: auto;">
+              <u-tree class="form-control" params='data:{model:$root.treemodel,treeSetting:$root.treeOption},
+                umeta:{"id":"tree","data":"model","idField":"id","pidField":"parentId","nameField":"name","setting":"treeSetting"}'>
+              </u-tree>
+            </div>
+            <div class="u-col-8">
+              <u-grid params="config:$root.config"></u-grid>
+            </div>
+          </div>
+        </div>
+      </box-content>
+    </box>
+  </div>
+
+<style>
+  #treebill .ztree {
+    overflow: hidden;
+  }
+</style>
+
+  <% if (htmlWebpackPlugin.options.files.js) { %>
+    <% htmlWebpackPlugin.options.files.js.forEach(function(name){ %>
+      <script type="text/javascript" src="<%= name %>"></script>
+    <% }) %>
+  <% } %>
+</body>
+</html>

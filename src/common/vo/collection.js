@@ -66,8 +66,9 @@ Collection.prototype.load = async function (params, config = {}) {
     this.datatable.setSimpleData(this.data.result, {
       'unSelect': 'true'
     })
-  } else if (this.data.data) {
-    this.datatable.setSimpleData(this.data.data, {
+  } else if (this.data) {
+    //mahonggeng 连同后台一起修改返回数据格式
+    this.datatable.setSimpleData(this.data, {
       'unSelect': 'true'
     })
   } else {

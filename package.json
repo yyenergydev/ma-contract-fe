@@ -10,12 +10,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "http://git.yonyou.com/energycloud_contract/ma-contract-fe.git"
+    "url": "https://github.com/yyenergydev/ma-contract-fe.git"
   },
   "keywords": [
     "contract"
   ],
-  "author": "songhlc, zhangmyh",
+  "author": "tangh, mhg",
   "license": "MIT",
   "dependencies": {
     "eventemitter2": "^2.2.2",

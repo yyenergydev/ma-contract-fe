@@ -1,4 +1,4 @@
-// latest: tangh 2017-09-22 13:31 AM
+// latest: tangh 2017-09-25 13:31 AM
 import './index.less'
 import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
@@ -128,7 +128,7 @@ function init () {
     design: function () {
 
     },
-    open: function () {}
+    bOpen: function () {}
   }
   window.app = window.u.createApp({
     el: 'body',

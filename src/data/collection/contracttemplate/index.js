@@ -6,6 +6,8 @@ Collection.define('collection.contracttemplate', {
   model: 'model.contracttemplate',
   proxy: {
     get: '/ma-contract/contracttemplate/list',
+    post: '/ma-contract/contracttemplate/save',
+    delete: '/ma-contract/contracttemplate/delete',
     loadmethod: 'get'
   }
 })

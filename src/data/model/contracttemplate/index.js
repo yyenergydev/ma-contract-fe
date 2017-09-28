@@ -12,8 +12,8 @@ Model.define('model.contracttemplate', {
     name: {type: 'string'}, // 模板名称
     useScopeIds: {type: 'string'}, // 使用范围
     useScopeNames: {type: 'string'}, // 使用范围
-    version: {type: 'string'}, // 版本号
-    status: {type: 'string'}, // 使用状态
+    version: {type: 'integer'}, // 版本号
+    status: {type: 'integer'}, // 使用状态
     creator: {type: 'string'}, // 创建人
     creationtime: {type: 'string'}, // 创建时间
     modifier: {type: 'string'}, // 修改人

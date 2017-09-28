@@ -4,7 +4,7 @@ import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
 import {debounce} from 'lodash'
-import {Post, Get, URLs} from 'common'
+import {Post, URLs} from 'common'
 import collection from 'collection/contracttemplate'
 import uMessage from 'components/message'
 /* eslint-disable */
@@ -34,16 +34,30 @@ const columnSetting = [{
   'width': '15%'
 }, {
   'field': 'version',
-  'dataType': 'String',
+  'dataType': 'Integer',
   'title': '版本号',
   'editable': false,
   'width': '10%'
 }, {
   'field': 'status',
-  'dataType': 'String',
+  'dataType': 'Integer',
   'title': '启用状态',
   'editable': false,
-  'width': '10%'
+  'width': '10%',
+  renderType (obj) {
+    const stateConverter = function (state) {
+      switch (state) {
+        case 0:
+          return '未启用'
+        case 1:
+          return '已启用'
+        default:
+          return ''
+      }
+    }
+    let text = stateConverter(obj.row.value.status)
+    obj.element.innerHTML = '<span title="' + text + '">' + text + '</span>'
+  }
 }, {
   'field': 'creator',
   'dataType': 'String',
@@ -54,7 +68,7 @@ const columnSetting = [{
   'field': 'creationtime',
   'dataType': 'String',
   'title': '创建时间',
-  // 'editType': 'datetime',
+  'editType': 'datetime',
   'editable': false,
   'width': '15%'
 }, {
@@ -96,26 +110,32 @@ function init () {
       fields: columnSetting
     },
     copy: function () {
-      let rows = collection.datatable.getSelectedRow()
-      console.log(rows)
-
-      var data = [{
-        "creator": userId,
-        "creationtime": getNowFormatDate()
-      }]
-      collection.datatable.addSimpleData(data);
+      let rows = collection.datatable.getSelectedRows()
+      if (rows.length > 0) {
+        rows.forEach(function (obj) {
+          var data = [{
+            "code": obj.data.code,
+            "name": obj.data.name,
+            // "version": 1,
+            "creator": userId,
+            "creationtime": getNowFormatDate()
+          }]
+          collection.datatable.addSimpleData(data);
+        })
+      }
     },
     save: debounce(async function () {
       $('#saveId').attr('disabled', true)
       $('#saveId').removeClass('btn-primary')
       $('#savespan').attr('disabled', true)
-      var data = await collection.save()
-
+      var json = collection.datatable.getSimpleData();
+      var data = await Post(collection.proxy.post, json)     
       if (data.status == '1') {
         uMessage('success', data.msg || '保存成功')
         $('#saveId').removeAttr('disabled', true)
         $('#saveId').addClass('btn-primary')
         $('#savespan').removeAttr('disabled', true)
+        collection.load({ pageIndex: pageIndex })
       } else {
         uMessage('fail', data.msg || '保存失败')
         $('#saveId').removeAttr('disabled', true)
@@ -190,8 +210,9 @@ function getNowFormatDate() {
 
 (async function () {
   //界面初始化赋值
-  var {data} = await Get('/cpu-bidtrade/bidtrade/getBidInfo')
-  console.log(data)
-  userId = data.contact
+  // var {data} = await Get('/cpu-bidtrade/bidtrade/getBidInfo')
+  // console.log(data)
+  // userId = data.contact
+  userId = '1'
   init()
 })()

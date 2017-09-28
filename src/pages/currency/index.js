@@ -4,7 +4,7 @@ import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
 import {debounce} from 'lodash'
-import {Post, Get, URLs} from 'common'
+import {Post, URLs} from 'common'
 import collection from 'collection/currency'
 import uMessage from 'components/message'
 /* eslint-disable */
@@ -176,8 +176,9 @@ function getNowFormatDate() {
 
 (async function () {
   //界面初始化赋值
-  var {data} = await Get('/cpu-bidtrade/bidtrade/getBidInfo')
-  console.log(data)
-  userId = data.contact
+  // var {data} = await Get('/cpu-bidtrade/bidtrade/getBidInfo')
+  // console.log(data)
+  // userId = data.contact
+  userId = 'test1'
   init()
 })()

@@ -4,7 +4,7 @@ import { Model } from 'common'
 
 Model.define('contractsampletext.detail', {
   proxy: {
-    get: '/ma-contract/contractsampletext/list',
+    get: '/ma-contract/contractsampletext/queryByPk',
     post: '/ma-contract/contractsampletext/save'
   },
   meta: {

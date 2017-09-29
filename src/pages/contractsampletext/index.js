@@ -31,16 +31,21 @@ function init () {
     selectedtype: {id: null, name: null, level: -1},
     treeOption: {
       callback: {
+        //beforeClick: async function (id, obj) {
         beforeClick: async function (id, obj) {
-          viewModel.selectedtype = obj
-          collection.datatable.removeAllRows()
+          var str ='' ;
+          str = getAllChildrenNodes(obj,str);
+          collection.load({idstr: obj.id+str});
 
+          viewModel.selectedtype = obj
+
+          /* 
+          collection.datatable.removeAllRows()
           var {data} = await Get(collection.proxy.get, {
             id: obj.id
           })
           collection.datatable.setSimpleData(data.result)
-          console.log('1111111'+JSON.stringify(data))
-          
+          console.log('1111111'+JSON.stringify(data)) */
         }
       }
     },
@@ -78,11 +83,17 @@ function init () {
         'dataType': 'float',
         'title': '版本号',
         'width': '20%'
-      }]
+      }],
+      onDblClickFun: function (obj){
+        debugger
+        window.location.href = '../contractsampletextedit/index.' + __('locale') + '.html?textid=' + obj.rowObj.value.id + window.location.hash
+
+      }
     },
 
     model: collection.model,
     add,
+    addContractsampletextedit,
     deleteRows: debounce(async function (data) {
       var data = collection.datatable.getSimpleData({type:'select'})
       var ids = []
@@ -90,33 +101,19 @@ function init () {
         collection.datatable.removeRow(index)
         ids.push(row.id);
       })
-      debugger
-      var data = Delete(collection.proxy.delete,{ids:ids})
-      if (data.status === 1) {
-        uMessage('success', data.msg || '保存成功')
-    
+      var result = await Post(collection.proxy.delete,{ids:ids})
+      if (result.status === 1) {
+        uMessage('success', result.msg || '删除成功')
       } else {
-        uMessage('fail', data.msg || '保存失败')
-    
+        uMessage('fail', result.msg || '删除失败')
       }
     }, 0),
     save: debounce(async function (data) {
-      //viewModel.model.setValue('bidType', bidType)
-      // viewModel.model.setValue('supervisors', JSON.stringify(viewModel.model.getValue('supervisors')))
-     /*  $('#saveId').attr('disabled', true)
-      $('#saveId').removeClass('btn-primary')
-      $('#savespan').attr('disabled', true) */
-      //var data = await collection.model.save()
-
       var json = collection.datatable.getSimpleData();
       var data = await Post(collection.proxy.post, json)
-      console.log(json)
-      console.log(data)
-      debugger
-      collection.datatable.removeAllRows()
-      collection.datatable.setSimpleData(data.data.result)
-
       if (data.status === 1) {
+        collection.datatable.removeAllRows()
+        collection.datatable.setSimpleData(data.data)
         uMessage('success', data.msg || '保存成功')
     
       } else {
@@ -145,15 +142,33 @@ function add(){
   collection.datatable.addSimpleData(data);
 }
 
-function deleteRows(){
-  var data = collection.datatable.getSimpleData({type:'select'})
+function addContractsampletextedit () {
+  var conttype = viewModel.selectedtype;
+  if(conttype.id==null){
+    uMessage('提示', '请选择合同类型')
+    return
+  }
 
-  var ids = []
-  $.each(data,function(index,row){
-    ids.push(row.id);
-  })
-  Delete(collection.proxy.delete,{ids:ids})
+  var data = {
+    "contracttypeId": conttype.id,
+    "contracttypeName": conttype.name
+  }
+  //collection.datatable.addSimpleData(data);
+  debugger
+  window.location.href = '../contractsampletextedit/index.' + __('locale') + '.html?inittypeid=' + conttype.id + '&initname='+escape(conttype.name) + '&textid=0'
+}
 
+function getAllChildrenNodes(treeNode,result){
+  if (treeNode.isParent) {
+    var childrenNodes = treeNode.children;
+    if (childrenNodes) {
+        for (var i = 0; i < childrenNodes.length; i++) {
+            result += ',' + childrenNodes[i].id;
+            result = getAllChildrenNodes(childrenNodes[i], result);
+        }
+    }
+}
+return result;
 }
 
 (async function () {

@@ -15,6 +15,10 @@
     div.u-form-control {
       line-height: 22px;
     }
+    .disedit {
+      /*z-index:1001;*/
+      background-color: #f1f1f1;
+    }
   </style>
 </head>
 
@@ -38,7 +42,12 @@
       </box-sticky>
 
 
-      <box-content params="title:'基本内容'" id="claim">
+      <!-- <box-content params="title:'基本内容'" id="claim"> -->
+      <box-content params="" id="claim">
+        <div style="font-size:17px;margin-bottom: 20px;">
+          <span>单据号 : </span>
+          <input type="text" style="border:0px;background-color:#ffffff;" disabled="disabled" class="" data-bind="value: $root.model.ref('billnum')">
+        </div>
         <div class="u-form-group">
           <label class="u-col-2 u-form-group-sm u-form-label text-right">合同编码 : </label>
           <div class="u-col-2">
@@ -63,8 +72,9 @@
             <!--<refer params="flag:0,type: 'contracttype', showrefer: $root.chooseContracttype, onselect: $root.contracttypeselect, placeholder: '选择合同类型', showSearch: false, showtext: $root.model.ref('contractTypeName'), value: $root.model.ref('contractTypeId')"></refer>-->
           </div>
           <label class="u-col-2 u-form-group-sm u-form-label text-right"><span id="contractText_input" class="required" style="display:none">*</span> 合同示范文本 : </label>
-          <div class="u-col-2">
-            <input id="contractText" type="text" class="u-form-control" data-bind="value: $root.model.ref('contractText')">
+          <div class="u-col-2 contractText">
+            <refer params="type: 'contractText', showrefer: $root.showcontractText, placeholder: '选择合同示范文本', showSearch: true, showtext: $root.model.ref('contractText'), value: $root.model.ref('contractTextId')"></refer>
+            <!-- <input id="contractText" type="text" class="u-form-control" data-bind="value: $root.model.ref('contractText')"> -->
           </div>
         </div>
         <div class="u-form-group">

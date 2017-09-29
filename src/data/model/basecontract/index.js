@@ -1,11 +1,12 @@
-// latest: zhangmyh 2017-3-15 9:27 AM
+// latest: mahonggeng 2017-9-15 9:27 AM
 import { Model } from 'common'
 // import './material'
 
 Model.define('basecontract.detail', {
   proxy: {
     get: '/ma-contract/basecontract/list',
-    post: '/ma-contract/basecontract/save'
+    post: '/ma-contract/basecontract/save',
+    temppost: '/ma-contract/basecontract/tempsave'
   },
   meta: {
     // 基础信息
@@ -16,6 +17,7 @@ Model.define('basecontract.detail', {
     contractTypeId: {type: 'integer', required: true, nullMsg: '请选择合同类型'},
     contractTypeName: {type: 'string'},
     isCommonText: {type: 'string', required: true, nullMsg: '请输入是否统一文本'},
+    contractTextId: {type: 'integer'},
     contractText: {type: 'string'},
     isAssetPlatform: {type: 'string', required: true, nullMsg: '请输入是否资产经营性平台'}, // 是否资产经营性平台
     isSystemContract: {type: 'string', required: true, nullMsg: '请输入是否系统内合同'}, // 是否系统内合同

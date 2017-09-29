@@ -1,4 +1,7 @@
+// latest: mahonggeng 2017-9-22 09:27 AM
+
 import contracttype from 'components/modalrefer/contracttype'
+import contractsampletext from 'components/modalrefer/contractsampletext'
 import contractdef from 'model/basecontract'
 import uMessage from 'components/message'
 
@@ -9,14 +12,14 @@ function commonrefer (option) {
     okId: 'okBtn',
     contentId: 'refer',
     width: '800px',
-    enterpriseId: 11,
+    contracttypeid: option.contracttypeid || 1,
     title: option.title,
     onOk: option.onOk,
     onCancel: option.onCancel
   })
 }
 
-function referVal(msg, name, id){
+function treereferVal(msg, name, id){
   if(!msg.isParent){
     contractdef.datatable.getCurrentRow().setValue(name, msg.name)
     contractdef.datatable.getCurrentRow().setValue(id, msg.id)
@@ -27,10 +30,15 @@ function referVal(msg, name, id){
   }
 }
 
+function referVal(msg, name, id){
+    contractdef.datatable.getCurrentRow().setValue(name, msg.name)
+    contractdef.datatable.getCurrentRow().setValue(id, msg.id)
+}
+
 function showcontracttyperefer() {
   commonrefer({
     onOk: function onOk (msg) {
-      referVal(msg, 'contractTypeName', 'contractTypeId')
+      treereferVal(msg, 'contractTypeName', 'contractTypeId')
     },
     onCancel: function onCancel () {
 
@@ -39,6 +47,21 @@ function showcontracttyperefer() {
     model: contracttype
   })
 }
+
+function showcontractText() {
+  commonrefer({
+    onOk: function onOk (msg) {
+      referVal(msg, 'contractText', 'contractTextId')
+    },
+    onCancel: function onCancel () {
+
+    },
+    contracttypeid: contractdef.datatable.getValue('contractTypeId'),
+    title: '选择合同示范文本',
+    model: contractsampletext
+  })
+}
+
 function showindustryType(){
   commonrefer({
     onOk: function onOk (msg) {
@@ -116,6 +139,7 @@ function showundertakedept() {
 
 export default {
   showcontracttyperefer,
+  showcontractText,
   showindustryType,
   showcurrency,
   showcontractOwn,

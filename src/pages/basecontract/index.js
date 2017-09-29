@@ -1,4 +1,4 @@
-// latest: zhangmyh 2017-5-2 11:00 AM
+// latest: mahonggeng 2017-9-18 11:00 AM
 /* eslint-disable */
 import './index.less'
 import ko from 'knockout'
@@ -51,11 +51,13 @@ contractdef.datatable.on('isCommonText.valueChange', function (value) {
     $("#contractText_input").show()
   } else {
     $('#contractText').attr("readonly",true)
+    
     $("#contractText_input").hide()
   }
 })
 
 function init () {
+  contractdef.datatable.ref('billnum')('JackTest')
   viewModel = {
     id: ko.observable(contractId),
     billnum: ko.observable('JackTestnum'),
@@ -74,6 +76,7 @@ function init () {
     }, 0),
     model: contractdef.datatable,
     showcontracttyperefer: commonrefer.showcontracttyperefer,
+    showcontractText: commonrefer.showcontractText,//(contractdef.datatable.ref('contracttypeid')),
     showindustryType: commonrefer.showindustryType,
     showcurrency: commonrefer.showcurrency,
     showcontractOwn: commonrefer.showcontractOwn,
@@ -88,8 +91,7 @@ function init () {
     tempsave: debounce(async function () {
       optionControl('tempsave',true)
       //var data = await contractdef.save()
-      var data = await Post(contractdef.proxy.post, contractdef.getData())
-
+      let data = await Post(contractdef.proxy.temppost, contractdef.getData())
       if (data.status == '1') {
         uMessage('success', data.msg || '暂存成功')
         optionControl('tempsave',false)
@@ -97,6 +99,7 @@ function init () {
         uMessage('fail', data.msg || '暂存失败')
         optionControl('tempsave',false)
       }
+      contractdef.datatable.setSimpleData(data.data)
     }, 0),
     save: debounce(async function () {
       $('#saveId').attr('disabled', true)

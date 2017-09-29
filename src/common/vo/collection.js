@@ -50,7 +50,7 @@ Collection.prototype.load = async function (params, config = {}) {
     data = config.localData
   } else {
     let url = (config.url) ? config.url : this.proxy.get
-    let method = (config.method) ? config.methdo : this.proxy.loadmethod
+    let method = (config.method) ? config.method : this.proxy.loadmethod
     let ajax = (method === 'post') ? Post : Get
     data = await ajax(url, params)
   }
@@ -60,6 +60,7 @@ Collection.prototype.load = async function (params, config = {}) {
   } else {
     this.data = data
   }
+  debugger
   // 修改datatable，暂时兼容后台无result情况
   // 如后台全部保证存在result，可去掉判断
   if (this.data.result) {

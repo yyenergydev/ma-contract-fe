@@ -10,5 +10,6 @@
   "contractlist": "合同草稿箱",
   "contract_pu_edit": "采购合同",
   "basecontract":"基本合同",
-  "contractsampletext":"合同示范文本"
+  "contractsampletext":"合同示范文本",
+  "contractsampletextedit":"合同示范文本编辑"
 }

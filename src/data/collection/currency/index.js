@@ -6,6 +6,8 @@ Collection.define('collection.currency', {
   model: 'model.currency',
   proxy: {
     get: '/ma-contract/currency/list',
+    post: '/ma-contract/currency/save',
+    delete: '/ma-contract/currency/delete',
     loadmethod: 'get'
   }
 })

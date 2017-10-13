@@ -6,6 +6,8 @@ Collection.define('collection.industrycategory', {
   model: 'model.industrycategory',
   proxy: {
     get: '/ma-contract/industrycategory/list',
+    post: '/ma-contract/industrycategory/save',
+    delete: '/ma-contract/industrycategory/delete',
     loadmethod: 'get'
   }
 })

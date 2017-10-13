@@ -6,6 +6,7 @@ import 'components'
 import {debounce} from 'lodash'
 import {Post, URLs} from 'common'
 import collection from 'collection/contracttemplate'
+import Operater from './opt'
 import uMessage from 'components/message'
 /* eslint-disable */
 /* global ko u app $ __ */
@@ -115,10 +116,10 @@ function init () {
         rows.forEach(function (obj) {
           var data = [{
             "code": obj.data.code,
-            "name": obj.data.name,
+            "name": obj.data.name
             // "version": 1,
-            "creator": userId,
-            "creationtime": getNowFormatDate()
+            // "creator": userId,
+            // "creationtime": getNowFormatDate()
           }]
           collection.datatable.addSimpleData(data);
         })
@@ -148,7 +149,28 @@ function init () {
     design: function () {
 
     },
-    bOpen: function () {}
+    bOpen: async function () {
+      let rows = collection.datatable.getSelectedRows()
+      if (rows.length == 0) {
+        uMessage('warning', '请选择会签单模板！')
+        return
+      }
+      let idstr
+      let params = {
+        ids: rows.map(function (row) {
+          idstr = row.getValue('id')
+          return row.getValue('id')
+        })
+      }
+      // let data = await Post(Operater.bt_openBt.url, params)
+      let data = await Post(Operater.bt_openBt.url, {id: idstr})
+      // if (data.status) {
+      //   showMessage('success', data.msg || '启用成功')
+      // } else {
+      //   showMessage('fail', data.msg || '启用失败')
+      // }
+      collection.load({ pageIndex: pageIndex })
+    }
   }
   window.app = window.u.createApp({
     el: 'body',

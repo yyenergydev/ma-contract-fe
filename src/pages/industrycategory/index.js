@@ -78,9 +78,28 @@ function init () {
       fields: columnSetting
     },
     add: function () {
+      var data = [{
+      }]
+      collection.datatable.addSimpleData(data);
     },
-    save: function () {
-    },
+    save: debounce(async function () {
+      $('#saveId').attr('disabled', true)
+      $('#saveId').removeClass('btn-primary')
+      $('#savespan').attr('disabled', true)
+      var json = collection.datatable.getSimpleData();
+      var data = await Post(collection.proxy.post, json) 
+      if (data.status == '1') {
+        uMessage('success', data.msg || '保存成功')
+        $('#saveId').removeAttr('disabled', true)
+        $('#saveId').addClass('btn-primary')
+        $('#savespan').removeAttr('disabled', true)
+      } else {
+        uMessage('fail', data.msg || '保存失败')
+        $('#saveId').removeAttr('disabled', true)
+        $('#saveId').addClass('btn-primary')
+        $('#savespan').removeAttr('disabled', true)
+      }
+    }, 0),
     deleteBill,
     stop: function () {
     }

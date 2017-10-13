@@ -4,7 +4,7 @@ import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
 import {debounce} from 'lodash'
-import {Post, URLs} from 'common'
+import {Post} from 'common'
 import collection from 'collection/currency'
 import uMessage from 'components/message'
 /* eslint-disable */
@@ -90,8 +90,8 @@ function init () {
     },
     add: function () {
       var data = [{
-        "creator": userId,
-        "creationtime": getNowFormatDate()
+        // "creator": userId,
+        // "creationtime": getNowFormatDate()
       }]
       collection.datatable.addSimpleData(data);
     },
@@ -99,22 +99,42 @@ function init () {
       $('#saveId').attr('disabled', true)
       $('#saveId').removeClass('btn-primary')
       $('#savespan').attr('disabled', true)
-      var data = await collection.save()
-
+      var json = collection.datatable.getSimpleData();
+      var data = await Post(collection.proxy.post, json) 
       if (data.status == '1') {
         uMessage('success', data.msg || '保存成功')
         $('#saveId').removeAttr('disabled', true)
         $('#saveId').addClass('btn-primary')
         $('#savespan').removeAttr('disabled', true)
+        collection.load({ pageIndex: pageIndex })
       } else {
         uMessage('fail', data.msg || '保存失败')
         $('#saveId').removeAttr('disabled', true)
         $('#saveId').addClass('btn-primary')
         $('#savespan').removeAttr('disabled', true)
       }
-
     }, 0),
-    deleteBill
+    deleteRows: debounce(async function (data) {
+      var data = collection.datatable.getSimpleData({type:'select'})
+      // u.confirmDialog({
+      //   msg: '是否确认删除？',
+      //   title: '删除确认',
+      //   onOk: async function () {
+          var ids = []
+          $.each(data,function(index,row){
+            collection.datatable.removeRow(index)
+            ids.push(row.id);
+          })
+          
+          var data = await Post(collection.proxy.delete, {ids:ids})
+          if (data.status) {
+            uMessage('success', data.msg || '删除成功')
+          } else {
+            uMessage('fail', data.msg || '删除失败')
+          }
+      //   }
+      // })
+    }, 0)
   }
   window.app = window.u.createApp({
     el: 'body',
@@ -122,38 +142,7 @@ function init () {
   })
 }
 
-function deleteBill () {
-  let rows = collection.datatable.getSelectedRows()
-  console.log(rows)
-  
-  let params = {
-    ids: rows.map(function (row) {
-      return row.getValue('id')
-    })
-  }
-  u.confirmDialog({
-    msg: '是否确认删除？',
-    title: '删除确认',
-    onOk: async function () {
-      delCheck()
-      collection.datatable.removeAllRows(rows);
-      let data = await Post(URLs.bt_removeBt.url, params)
-      /* if (data.status) {
-        rows.forEach(function (obj) {
-          collection.datatable.removeRows([obj])
-        })
-      } */
-      if (data.status) {
-        showMessage('success', data.msg || '删除成功')
-      } else {
-        showMessage('fail', data.msg || '删除失败')
-      }
-    }
-  })
-}
-
 function delCheck () {
-
 }
 // 获取系统当前时间
 function getNowFormatDate() {
@@ -176,9 +165,5 @@ function getNowFormatDate() {
 
 (async function () {
   //界面初始化赋值
-  // var {data} = await Get('/cpu-bidtrade/bidtrade/getBidInfo')
-  // console.log(data)
-  // userId = data.contact
-  userId = 'test1'
   init()
 })()

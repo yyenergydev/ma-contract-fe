@@ -8,8 +8,8 @@ Model.define('model.contracttemplate', {
   },
   meta: {
     id: {type: 'integer'},
-    code: {type: 'string'}, // 模板编码
-    name: {type: 'string'}, // 模板名称
+    code: {type: 'string', required: true, nullMsg: '请输入模板编码'}, // 模板编码
+    name: {type: 'string', required: true, nullMsg: '请输入模板名称'}, // 模板名称
     useScopeIds: {type: 'string'}, // 使用范围
     useScopeNames: {type: 'string'}, // 使用范围
     version: {type: 'integer'}, // 版本号

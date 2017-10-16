@@ -4,7 +4,7 @@ import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
 import {debounce} from 'lodash'
-import {Post, URLs} from 'common'
+import {Post} from 'common'
 import collection from 'collection/contracttemplate'
 import Operater from './opt'
 import uMessage from 'components/message'
@@ -145,30 +145,52 @@ function init () {
       }
 
     }, 0),
-    deleteBill,
+    deleteRows: debounce(async function (data) {
+      var data = collection.datatable.getSimpleData({type:'select'})
+      // u.confirmDialog({
+      //   msg: '是否确认删除？',
+      //   title: '删除确认',
+      //   onOk: async function () {
+          var ids = []
+          $.each(data,function(index,row){
+            // collection.datatable.removeRow(index)
+            ids.push(row.id);
+          })
+          if (ids.length == 0) {
+            uMessage('warning', data.msg || '请选择要删除的模板!')
+            return
+          }
+          var data = await Post(collection.proxy.delete, {ids:ids})
+          if (data.status) {
+            uMessage('success', data.msg || '删除成功')
+            collection.load({ pageIndex: pageIndex })
+          } else {
+            uMessage('fail', data.msg || '删除失败')
+          }
+      //   }
+      // })
+    }, 0),
     design: function () {
 
     },
     bOpen: async function () {
-      let rows = collection.datatable.getSelectedRows()
-      if (rows.length == 0) {
-        uMessage('warning', '请选择会签单模板！')
+      var data = collection.datatable.getSimpleData({type:'select'})
+      var ids = []
+      $.each(data,function(index,row){
+        // collection.datatable.removeRow(index)
+        ids.push(row.id);
+      })
+      if (ids.length == 0) {
+        uMessage('warning', data.msg || '请选择要删除的模板!')
         return
       }
-      let idstr
-      let params = {
-        ids: rows.map(function (row) {
-          idstr = row.getValue('id')
-          return row.getValue('id')
-        })
+      var data = await Post(Operater.bt_openBt.url, {ids:ids})
+      if (data.status) {
+        showMessage('success', data.msg || '启用成功')
+        collection.load({ pageIndex: pageIndex })
+      } else {
+        showMessage('fail', data.msg || '启用失败')
       }
-      // let data = await Post(Operater.bt_openBt.url, params)
-      let data = await Post(Operater.bt_openBt.url, {id: idstr})
-      // if (data.status) {
-      //   showMessage('success', data.msg || '启用成功')
-      // } else {
-      //   showMessage('fail', data.msg || '启用失败')
-      // }
       collection.load({ pageIndex: pageIndex })
     }
   }
@@ -178,39 +200,6 @@ function init () {
   })
 }
 
-function deleteBill () {
-  let rows = collection.datatable.getSelectedRows()
-  console.log(rows)
-  
-  let params = {
-    ids: rows.map(function (row) {
-      return row.getValue('id')
-    })
-  }
-  u.confirmDialog({
-    msg: '是否确认删除？',
-    title: '删除确认',
-    onOk: async function () {
-      delCheck()
-      collection.datatable.removeAllRows(rows);
-      let data = await Post(URLs.bt_removeBt.url, params)
-      /* if (data.status) {
-        rows.forEach(function (obj) {
-          collection.datatable.removeRows([obj])
-        })
-      } */
-      if (data.status) {
-        showMessage('success', data.msg || '删除成功')
-      } else {
-        showMessage('fail', data.msg || '删除失败')
-      }
-    }
-  })
-}
-
-function delCheck () {
-
-}
 // 获取系统当前时间
 function getNowFormatDate() {
     var date = new Date()
@@ -232,9 +221,5 @@ function getNowFormatDate() {
 
 (async function () {
   //界面初始化赋值
-  // var {data} = await Get('/cpu-bidtrade/bidtrade/getBidInfo')
-  // console.log(data)
-  // userId = data.contact
-  userId = '1'
   init()
 })()

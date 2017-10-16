@@ -8,8 +8,8 @@ Model.define('model.industrycategory', {
   },
   meta: {
     id: {type: 'integer'},
-    code: {type: 'string'}, // 行业类别编码
-    name: {type: 'string'}, // 行业类别名称
+    code: {type: 'string', required: true, nullMsg: '请输入行业类别编码'}, // 行业类别编码
+    name: {type: 'string', required: true, nullMsg: '请输入行业类别编码'}, // 行业类别名称
     creator: {type: 'string'}, // 创建人
     creationtime: {type: 'string'}, // 创建时间
     modifier: {type: 'string'}, // 修改人

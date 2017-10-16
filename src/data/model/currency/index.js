@@ -8,8 +8,8 @@ Model.define('model.currency', {
   },
   meta: {
     id: {type: 'integer'},
-    code: {type: 'string'}, // 币种编码
-    name: {type: 'string'}, // 币种名称
+    code: {type: 'string', required: true, nullMsg: '请输入币种编码'}, // 币种编码
+    name: {type: 'string', required: true, nullMsg: '请输入币种名称'}, // 币种名称
     symbol: {type: 'string'}, // 币种币符
     precision: {type: 'string'}, // 精度
     creator: {type: 'string'}, // 创建人

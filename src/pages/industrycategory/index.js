@@ -3,7 +3,8 @@ import './index.less'
 import 'ko-epui/dist/ko-epui.css'
 import 'ko-epui'
 import 'components'
-import {Post, URLs} from 'common'
+import {debounce} from 'lodash'
+import {Post} from 'common'
 import collection from 'collection/industrycategory'
 // import uMessage from 'components/message'
 /* eslint-disable */
@@ -16,11 +17,13 @@ const columnSetting = [{
   'field': 'code',
   'dataType': 'String',
   'title': '行业类别编码',
+  'editable': true,
   'width': '15%'
 }, {
   'field': 'name',
   'dataType': 'String',
   'title': '行业类别名称',
+  'editable': true,
   'width': '15%'
 }, {
   'field': 'creator',
@@ -93,6 +96,7 @@ function init () {
         $('#saveId').removeAttr('disabled', true)
         $('#saveId').addClass('btn-primary')
         $('#savespan').removeAttr('disabled', true)
+        collection.load({ pageIndex: pageIndex })
       } else {
         uMessage('fail', data.msg || '保存失败')
         $('#saveId').removeAttr('disabled', true)
@@ -100,7 +104,31 @@ function init () {
         $('#savespan').removeAttr('disabled', true)
       }
     }, 0),
-    deleteBill,
+    deleteRows: debounce(async function (data) {
+      var data = collection.datatable.getSimpleData({type:'select'})
+      // u.confirmDialog({
+      //   msg: '是否确认删除？',
+      //   title: '删除确认',
+      //   onOk: async function () {
+          var ids = []
+          $.each(data,function(index,row){
+            // collection.datatable.removeRow(index)
+            ids.push(row.id);
+          })
+          if (ids.length == 0) {
+            uMessage('warning', data.msg || '请选择要删除的行业类别!')
+            return
+          }
+          var data = await Post(collection.proxy.delete, {ids:ids})
+          if (data.status) {
+            uMessage('success', data.msg || '删除成功')
+            collection.load({ pageIndex: pageIndex })
+          } else {
+            uMessage('fail', data.msg || '删除失败')
+          }
+      //   }
+      // })
+    }, 0),
     stop: function () {
     }
   }
@@ -110,56 +138,7 @@ function init () {
   })
 }
 
-function deleteBill () {
-  let rows = collection.datatable.getSelectedRows()
-  let params = {
-    ids: rows.map(function (row) {
-      return row.getValue('id')
-    })
-  }
-  u.confirmDialog({
-    msg: '是否确认删除？',
-    title: '删除确认',
-    onOk: async function () {
-      delCheck()
-      let data = await Post(URLs.bt_removeBt.url, params)
-      /* if (data.status) {
-        rows.forEach(function (obj) {
-          collection.datatable.removeRows([obj])
-        })
-      } */
-      if (data.status) {
-        showMessage('success', data.msg || '删除成功')
-      } else {
-        showMessage('fail', data.msg || '删除失败')
-      }
-    }
-  })
-}
-
-function submit () {
-  let rows = collection.datatable.getSelectedRows()
-  let params = {
-    ids: rows.map(function (row) {
-      return row.getValue('id')
-    })
-  }
-  u.confirmDialog({
-    msg: '是否确认提交？',
-    title: '提交确认',
-    onOk: async function () {
-      let data = await Post(URLs.bt_commitBt.url, params)
-      if (data.status) {
-        showMessage('success', data.msg || '操作成功')
-      } else {
-        showMessage('fail', data.msg || '操作失败')
-      }
-    }
-  })
-}
-
 function delCheck () {
-
 }
 
 (async function () {

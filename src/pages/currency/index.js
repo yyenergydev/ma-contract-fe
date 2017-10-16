@@ -48,7 +48,7 @@ const columnSetting = [{
   'field': 'creationtime',
   'dataType': 'String',
   'title': '创建时间',
-  // 'editType': 'datetime',
+  'editType': 'datetime',
   'editable': false,
   'width': '15%'
 }, {
@@ -122,13 +122,17 @@ function init () {
       //   onOk: async function () {
           var ids = []
           $.each(data,function(index,row){
-            collection.datatable.removeRow(index)
+            // collection.datatable.removeRow(index)
             ids.push(row.id);
           })
-          
+          if (ids.length == 0) {
+            uMessage('warning', data.msg || '请选择要删除的币种!')
+            return
+          }
           var data = await Post(collection.proxy.delete, {ids:ids})
           if (data.status) {
             uMessage('success', data.msg || '删除成功')
+            collection.load({ pageIndex: pageIndex })
           } else {
             uMessage('fail', data.msg || '删除失败')
           }

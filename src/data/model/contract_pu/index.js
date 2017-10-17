@@ -5,7 +5,8 @@ import './terms'
 Model.define('model.contract_pu', {
   proxy: {
     get: '/ma-contract/contract_pu/getCtPubyId',
-    post: '/ma-contract/contract_pu/save'
+    post: '/ma-contract/contract_pu/save',
+    tempsave: '/ma-contract/contract_pu/tempsave'
   },
   meta: {
     // 标准信息

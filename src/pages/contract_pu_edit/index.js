@@ -8,11 +8,11 @@ import {debounce} from 'lodash'
 import 'collection/department'
 import 'collection/contract_pu'
 import ctpu from 'model/contract_pu'
-// import {Post} from 'common/Ajax'
+import {Post} from 'common'
 // import Adapter from './adapter'
 // import chooseRefer from 'components/modalrefer/chooseRefer'
 import uMessage from 'components/message'
-import { personrefer } from 'components/modalrefer'
+import {personrefer} from 'components/modalrefer'
 import {getStore} from 'common/combobox'
 /* eslint-disable */
 /* global ko u $ __ */
@@ -295,7 +295,15 @@ function init () {
       ]
     },
     model: ctpu.datatable,
-    tmpSave,
+    tempsave: debounce(async function () {
+      let data = await Post(ctpu.proxy.tempsave, ctpu.getData())
+      if (data.status == '1') {
+        uMessage('success', data.msg || '暂存成功')
+      } else {
+        uMessage('fail', data.msg || '暂存失败')
+      }
+      ctpu.datatable.setSimpleData(data.data)
+    }, 0),
     save: debounce(async function () {
       //保存校验
       if (valid()) {
@@ -307,7 +315,9 @@ function init () {
         }
       }
     }, 0),
-    flow,
+    showprocess: function () {
+      uMessage('warning', '功能开发...')
+    },
     chooseContrTpl: choosePerson(function (info) {
       console.log(info)
       viewModel.model.setValue('projectid', info.id)
@@ -320,29 +330,7 @@ function init () {
   })
 }
 
-function tmpSave () {
-  uMessage('warning', '功能开发...')
-}
-
-function flow () {
-  uMessage('warning', '功能开发...')
-}
-
-function setDefault () {
-  // ctpu.datatable.ref('isCommonText')(2)
-  // ctpu.datatable.ref('isSystemContract')(1)
-  // var comboboxAObject = window.app.getComp('status');
-  // comboboxAObject.setEnable(false);
-}
-
 function valid () {
-  // var inputTypeCode = viewModel.model.getValue('code')
-  // if (inputTypeCode != null) {
-  //   if (inputTypeCode.length != 5) {
-  //     uMessage('warning', '请输入5位长度合同类型编码，如A0000！')
-  //     return false
-  //   }
-  // }
   return true
 }
 
@@ -359,8 +347,6 @@ function doNothing () {}
 
 (async function () {
   //界面初始化赋值
-  setDefault()
-
   init()
 })()
 /* eslint-disable */

@@ -21,7 +21,8 @@ Model.define('contractsampletext.detail', {
     modifytime: {type: 'string'},
     pk_group: {type: 'integer'},
     pk_org: {type: 'integer'},
-    dr: {type: 'integer'}
+    dr: {type: 'integer'},
+    vdef1: {type: 'string'}
   }
 })
 
